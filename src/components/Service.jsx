@@ -20,7 +20,7 @@ const Service = () => {
             img: 'https://yandex.ru/images/search?pos=1&from=tabbar&img_url=https%3A%2F%2Fimage.pngaaa.com%2F946%2F4178946-middle.png&text=html+icon&rpt=simage&lr=10253'
         }
     ]);
-    const [editServiceShow, setEditServiceShow] = useState(null);  // Only store the index for editing
+    const [editServiceShow, setEditServiceShow] = useState(null);  
 
     const handleAddService = () => {
         setAddService([...addService, { name: '', description: '', img: '' }]);
@@ -33,7 +33,7 @@ const Service = () => {
     };
 
     const handleEditServiceShow = (index) => {
-        setEditServiceShow(editServiceShow === index ? null : index);  // Toggle the current service edit mode
+        setEditServiceShow(editServiceShow === index ? null : index);  
     };
 
     const handleImageChange = (event, index) => {
