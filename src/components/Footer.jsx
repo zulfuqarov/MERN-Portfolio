@@ -61,7 +61,7 @@ const Footer = () => {
     }
 
     return (
-        <div className='mx-auto container h-[50vh]'>
+        <div className='mx-auto container h-[55vh]'>
             <div className='flex justify-center items-center flex-col'>
                 <div className='w-[500px] max-[768px]:w-[300px] text-center flex flex-col justify-start items-center '>
                     <p className='text-[42px] font-bold text-white'>About <span className='text-[#EAB308]'>Me.</span></p>

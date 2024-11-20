@@ -20,7 +20,7 @@ const Service = () => {
             img: 'https://yandex.ru/images/search?pos=1&from=tabbar&img_url=https%3A%2F%2Fimage.pngaaa.com%2F946%2F4178946-middle.png&text=html+icon&rpt=simage&lr=10253'
         }
     ]);
-    const [editServiceShow, setEditServiceShow] = useState(null);  
+    const [editServiceShow, setEditServiceShow] = useState(null);
 
     const handleAddService = () => {
         setAddService([...addService, { name: '', description: '', img: '' }]);
@@ -33,7 +33,7 @@ const Service = () => {
     };
 
     const handleEditServiceShow = (index) => {
-        setEditServiceShow(editServiceShow === index ? null : index);  
+        setEditServiceShow(editServiceShow === index ? null : index);
     };
 
     const handleImageChange = (event, index) => {
@@ -52,6 +52,24 @@ const Service = () => {
         setAddService(newService);
     };
 
+    // edit Service description
+    const [ServiceDescription, setServiceDescription] = useState({
+        show: false,
+        description: 'There are many variations of passages ofLorem Ipsum available, but the majority havesuffered alteration in some form, by injected humour'
+    })
+    const handleAboutDescriptionChange = (event) => {
+        setServiceDescription({
+            ...ServiceDescription,
+            description: event.target.value
+        })
+    }
+    const showAboutDescription = () => {
+        setServiceDescription({
+            ...ServiceDescription,
+            show: !ServiceDescription.show,
+        })
+    }
+
     return (
         <div className="bg-[#111827] w-full">
             <div className="container mx-auto py-[90px] px-4">
@@ -59,9 +77,44 @@ const Service = () => {
                     <p className="text-[32px] md:text-[42px] text-white font-bold">
                         My <span className="text-[#EAB308]">Service</span>
                     </p>
-                    <span className="text-[#6B7280] leading-[24px] md:leading-[30px] inline-block py-4">
-                        There are many variations of passages of Lorem Ipsum available...
-                    </span>
+
+                    {
+                        ServiceDescription.show
+                            ?
+                            <textarea
+                                value={ServiceDescription.description || ""}
+                                onChange={handleAboutDescriptionChange}
+                                placeholder='write you own Service description'
+                                className="w-[400px] leading-[30px] text-[#9CA3AF] bg-transparent border border-dashed border-gray-400 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 resize-none"
+                                rows="4"
+
+                            />
+                            :
+                            <span className="text-[#6B7280] leading-[24px] md:leading-[30px] inline-block py-4">
+                                {ServiceDescription.description ? ServiceDescription.description :
+                                    " write you own Service description"
+                                }
+                            </span>
+                    }
+                    <div className="pb-[15px]">
+                        {
+                            ServiceDescription.show
+                                ?
+                                <button
+                                    onClick={showAboutDescription}
+                                >
+
+                                    <i className="fa-solid fa-check text-green-500 text-[17px] cursor-pointer"></i>
+                                </button>
+                                :
+                                <button
+                                    onClick={showAboutDescription}
+                                >
+                                    <i className="fa-solid fa-pen text-[#6B7280] text-[17px] cursor-pointer"></i>
+                                </button>
+                        }
+                    </div>
+
                     <Button func={handleAddService} text="Add Services" />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-8">
@@ -82,27 +135,34 @@ const Service = () => {
                             {/* Image Section */}
                             <div className="flex justify-center items-center w-[40px] h-[40px] cursor-pointer">
                                 {service.img ? (
-                                    <button className="relative cursor-pointer w-full h-full">
-                                        <img
-                                            className="w-full"
-                                            src={service.img}
+                                    <button className="relative !cursor-pointer w-full h-full">
+                                        <div
+                                            className="w-[40px] h-[40px] cursor-pointer"
                                             alt="Service"
-                                        />
+                                            style={{
+                                                backgroundImage: `url(${service.img})`,
+                                                backgroundSize: "cover",
+                                                backgroundPosition: "center",
+                                                backgroundRepeat: "no-repeat",
+                                            }}
+                                        >
+                                        </div>
+
                                         <input
                                             onChange={(event) => handleImageChange(event, index)}
                                             type="file"
                                             accept="image/*"
-                                            className="absolute top-0 left-0 opacity-0 z-10 w-full h-full cursor-pointer"
+                                            className="absolute top-0 left-0 opacity-0 z-10 w-full h-full !cursor-pointer"
                                         />
                                     </button>
                                 ) : (
-                                    <label className="flex relative flex-col items-center justify-center w-[40px] h-[40px] border border-dashed border-gray-400 rounded-lg cursor-pointer hover:bg-gray-100">
-                                        <span className="text-[17px] text-gray-500">+</span>
+                                    <label className="flex relative flex-col items-center justify-center w-[40px] h-[40px] border border-dashed border-gray-400 rounded-lg !cursor-pointer hover:bg-gray-100">
+                                        <span className="text-[17px] text-gray-500 !cursor-pointer">+</span>
                                         <input
                                             onChange={(event) => handleImageChange(event, index)}
                                             type="file"
                                             accept="image/*"
-                                            className="absolute opacity-0 w-full h-full cursor-pointer"
+                                            className="absolute opacity-0 w-full h-full !cursor-pointer"
                                         />
                                     </label>
                                 )}

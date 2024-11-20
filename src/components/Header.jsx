@@ -2,7 +2,27 @@ import React, { useState } from 'react'
 import ProfileImg from '../Assets/Img/ProfileImg.svg'
 import Button from './Button'
 const Header = () => {
-    // edit portfolio description
+
+    // edit about title
+    const [AboutTitle, setAboutTitle] = useState({
+        show: false,
+        title: 'Welcome to My Portfolio'
+    })
+    const handleAboutTitleChange = (event) => {
+        setAboutTitle({
+            ...AboutTitle,
+            title: event.target.value
+        })
+    }
+    const showAboutTitle = () => {
+        setAboutTitle({
+            ...AboutTitle,
+            show: !AboutTitle.show,
+        })
+    }
+
+
+    // edit about description
     const [AboutDescription, setaboutDescription] = useState({
         show: false,
         description: 'There are many variations of passages ofLorem Ipsum available, but the majority havesuffered alteration in some form, by injected humour'
@@ -21,7 +41,6 @@ const Header = () => {
     }
 
     // add Header img 
-
     const [portfolioImg, setPortfolioImg] = useState()
     const handleImageChange = (event) => {
         const file = event.target.files[0];
@@ -40,7 +59,44 @@ const Header = () => {
                             <span className="text-[#EAB308] text-[16px] md:text-[18px]">Hello, Welcome</span>
                         </div>
                         <div className="md:w-[466px] w-full">
-                            <h1 className="text-white font-bold text-[28px] md:text-[42px]">I’m Anderson Coper</h1>
+                            <div className='flex justify-between items-center max-[768px]:flex-col'>
+                                {
+                                    AboutTitle.show
+                                        ?
+                                        <textarea
+                                            value={AboutTitle.title || ""}
+                                            onChange={handleAboutTitleChange}
+                                            placeholder='Add your title.'
+                                            className="w-[350px] leading-[30px] my-[30px] text-[#9CA3AF] bg-transparent border border-dashed border-gray-400 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 resize-none"
+                                            rows="4"
+
+                                        />
+                                        :
+                                        <h1 className="text-white font-bold text-[28px] py-[20px] md:text-[42px]">
+                                            {
+                                                AboutTitle.title ? AboutTitle.title :
+                                                    "Add your title."
+                                            }
+                                        </h1>
+                                }
+                                {
+                                    AboutTitle.show
+                                        ?
+                                        <button
+                                            onClick={showAboutTitle}
+                                        >
+
+                                            <i className="fa-solid fa-check text-green-500 text-[17px] cursor-pointer"></i>
+                                        </button>
+                                        :
+                                        <button
+                                            onClick={showAboutTitle}
+                                        >
+                                            <i className="fa-solid fa-pen text-[#6B7280] text-[17px] cursor-pointer"></i>
+                                        </button>
+                                }
+
+                            </div>
 
                             {
                                 AboutDescription.show
