@@ -1,39 +1,51 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Button from './Button'
+import { PortfolioContext } from '../context/ContextPorfolio'
 
 const Contact = () => {
 
-    // edit portfolio description
-    const [contactDescription, setcontactDescription] = useState({
+    const { portfolioData, seteditValue, editValue } = useContext(PortfolioContext)
+    const { contactDescription, contactAddres, contactEmail, contactPhone, contactWebsite } = portfolioData
+
+    // edit Contact description
+    const [contactDescriptions, setcontactDescriptions] = useState({
         show: false,
-        description: 'There are many variations of passages ofLorem Ipsum available, but the majority havesuffered alteration in some form, by injected humour'
+        description: contactDescription
     })
     const handlePortfolioDescriptionChange = (event) => {
-        setcontactDescription({
-            ...contactDescription,
+        setcontactDescriptions({
+            ...contactDescriptions,
             description: event.target.value
         })
     }
     const showPortfolioDescription = () => {
-        setcontactDescription({
-            ...contactDescription,
-            show: !contactDescription.show,
+
+        if (contactDescriptions.show) {
+            seteditValue({
+                ...editValue,
+                contactDescription: contactDescriptions.description
+            })
+        }
+
+        setcontactDescriptions({
+            ...contactDescriptions,
+            show: !contactDescriptions.show,
         })
     }
 
 
     const [data, setdata] = useState([
         {
-            address: "23 S 80 Road, Benedict,ne, 68316 United States"
+            contactAddres: contactAddres
         },
         {
-            phone: "+01 123 456 789"
+            contactPhone: contactPhone
         },
         {
-            email: "abc.xyz@gmail.com"
+            contactEmail: contactEmail
         },
         {
-            website: "www.abc.xyz.com"
+            contactWebsite: contactWebsite
         }
     ])
 
@@ -41,7 +53,15 @@ const Contact = () => {
         index: '',
         show: false
     })
-    const editAdress = (index) => {
+    const editAdress = (index, name) => {
+
+        if (editShow.index === index && editShow.show) {
+            seteditValue({
+                ...editValue,
+                [name]: data[index][name],
+            })
+        }
+
         seteditShow({
             index,
             show: !editShow.show
@@ -70,10 +90,10 @@ const Contact = () => {
                     <p className='text-[42px] font-bold text-white'>Contact <span className='text-[#EAB308]'>Me</span></p>
                     <div className='pt-[20px]'>
                         {
-                            contactDescription.show
+                            contactDescriptions.show
                                 ?
                                 <textarea
-                                    value={contactDescription.description || ""}
+                                    value={contactDescriptions.description || ""}
                                     onChange={handlePortfolioDescriptionChange}
                                     placeholder='write you own contact description'
                                     className="w-[400px] leading-[30px] text-[#9CA3AF] bg-transparent border border-dashed border-gray-400 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 resize-none"
@@ -82,14 +102,14 @@ const Contact = () => {
                                 />
                                 :
                                 <span className='leading-[30px] text-[#9CA3AF]'>
-                                    {contactDescription.description ? contactDescription.description :
+                                    {contactDescriptions.description ? contactDescriptions.description :
                                         " write you own contact description"
                                     }
                                 </span>
                         }
                         <div className="pt-[20px]">
                             {
-                                contactDescription.show
+                                contactDescriptions.show
                                     ?
                                     <button
                                         onClick={showPortfolioDescription}
@@ -117,28 +137,28 @@ const Contact = () => {
                             {
                                 editShow.index === "0" && editShow.show
                                     ? <input
-                                        value={data[0].address}
+                                        value={data[0].contactAddres}
                                         onChange={(event) => handleChangeContactInput(event, 0)}
-                                        name="address"
+                                        name="contactAddres"
                                         type="text"
                                         placeholder="Address"
                                         class="w-64 px-4 py-2 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-1 bg-[#1F2937] text-white shadow transition duration-200 placeholder:text-slate-400"
                                     />
                                     :
-                                    <span className='text-white font-medium text-[17px]'>{data[0].address || "------"}</span>
+                                    <span className='text-white font-medium text-[17px]'>{data[0].contactAddres || "------"}</span>
                             }
 
                             {
                                 editShow.index === "0" && editShow.show
                                     ?
                                     <button
-                                        onClick={() => editAdress("0")}
+                                        onClick={() => editAdress("0", "contactAddres")}
                                     >
                                         <i className="fa-solid pl-[20px] fa-check text-green-500 text-[17px] cursor-pointer"></i>
                                     </button>
                                     :
                                     <button
-                                        onClick={() => editAdress("0")}
+                                        onClick={() => editAdress("0", "contactAddres")}
                                     >
                                         <i className="fa-solid pl-[20px] fa-pen text-[#6B7280] text-[17px] cursor-pointer"></i>
                                     </button>
@@ -149,27 +169,27 @@ const Contact = () => {
                             {
                                 editShow.index === "1" && editShow.show
                                     ? <input
-                                        value={data[1].phone}
+                                        value={data[1].contactPhone}
                                         onChange={(event) => handleChangeContactInput(event, 1)}
-                                        name="phone"
+                                        name="contactPhone"
                                         type="tel"
                                         placeholder="Phone"
                                         class="w-64 px-4 py-2 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-1 bg-[#1F2937] text-white shadow transition duration-200 placeholder:text-slate-400"
                                     />
                                     :
-                                    <span className='text-white font-medium text-[17px]'>{data[1].phone || "------"}</span>
+                                    <span className='text-white font-medium text-[17px]'>{data[1].contactPhone || "------"}</span>
                             }
                             {
                                 editShow.index === "1" && editShow.show
                                     ?
                                     <button
-                                        onClick={() => editAdress("1")}
+                                        onClick={() => editAdress("1", "contactPhone")}
                                     >
                                         <i className="fa-solid pl-[20px] fa-check text-green-500 text-[17px] cursor-pointer"></i>
                                     </button>
                                     :
                                     <button
-                                        onClick={() => editAdress("1")}
+                                        onClick={() => editAdress("1", "contactPhone")}
                                     >
                                         <i className="fa-solid pl-[20px] fa-pen text-[#6B7280] text-[17px] cursor-pointer"></i>
                                     </button>
@@ -180,27 +200,27 @@ const Contact = () => {
                             {
                                 editShow.index === "2" && editShow.show
                                     ? <input
-                                        value={data[2].email}
+                                        value={data[2].contactEmail}
                                         onChange={(event) => handleChangeContactInput(event, 2)}
-                                        name="email"
-                                        type="email"
+                                        name="contactEmail"
+                                        type="contactEmail"
                                         placeholder="Email"
                                         class="w-64 px-4 py-2 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-1 bg-[#1F2937] text-white shadow transition duration-200 placeholder:text-slate-400"
                                     />
                                     :
-                                    <span className='text-white font-medium text-[17px]'>{data[2].email || "------"}</span>
+                                    <span className='text-white font-medium text-[17px]'>{data[2].contactEmail || "------"}</span>
                             }
                             {
                                 editShow.index === "2" && editShow.show
                                     ?
                                     <button
-                                        onClick={() => editAdress("2")}
+                                        onClick={() => editAdress("2", "contactEmail")}
                                     >
                                         <i className="fa-solid pl-[20px] fa-check text-green-500 text-[17px] cursor-pointer"></i>
                                     </button>
                                     :
                                     <button
-                                        onClick={() => editAdress("2")}
+                                        onClick={() => editAdress("2", "contactEmail")}
                                     >
                                         <i className="fa-solid pl-[20px] fa-pen text-[#6B7280] text-[17px] cursor-pointer"></i>
                                     </button>
@@ -211,27 +231,27 @@ const Contact = () => {
                             {
                                 editShow.index === "3" && editShow.show
                                     ? <input
-                                        value={data[3].website}
+                                        value={data[3].contactWebsite}
                                         onChange={(event) => handleChangeContactInput(event, 3)}
-                                        name="website"
+                                        name="contactWebsite"
                                         type="text"
                                         placeholder="Website"
                                         class="w-64 px-4 py-2 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-1 bg-[#1F2937] text-white shadow transition duration-200 placeholder:text-slate-400"
                                     />
                                     :
-                                    <span className='text-white font-medium text-[17px]'>{data[3].website || "------"}</span>
+                                    <span className='text-white font-medium text-[17px]'>{data[3].contactWebsite || "------"}</span>
                             }
                             {
                                 editShow.index === "3" && editShow.show
                                     ?
                                     <button
-                                        onClick={() => editAdress("3")}
+                                        onClick={() => editAdress("3", "contactWebsite")}
                                     >
                                         <i className="fa-solid pl-[20px] fa-check text-green-500 text-[17px] cursor-pointer"></i>
                                     </button>
                                     :
                                     <button
-                                        onClick={() => editAdress("3")}
+                                        onClick={() => editAdress("3", "contactWebsite")}
                                     >
                                         <i className="fa-solid pl-[20px] fa-pen text-[#6B7280] text-[17px] cursor-pointer"></i>
                                     </button>

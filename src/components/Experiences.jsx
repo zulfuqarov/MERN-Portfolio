@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Button from './Button';
+import { PortfolioContext } from '../context/ContextPorfolio'
+
 const Experiences = () => {
+
+    const { portfolioData, seteditValue, editValue } = useContext(PortfolioContext)
+    const { myExperiencesDescription, Experiences } = portfolioData
 
     // edit Experiences  description
     const [ExperiencesDescription, setExperiencesDescription] = useState({
         show: false,
-        description: 'There are many variations of passages ofLorem Ipsum available, but the majority havesuffered alteration in some form, by injected humour'
+        description: myExperiencesDescription
     })
     const handlePortfolioDescriptionChange = (event) => {
         setExperiencesDescription({
@@ -14,6 +19,14 @@ const Experiences = () => {
         })
     }
     const showPortfolioDescription = () => {
+
+        if (ExperiencesDescription.show) {
+            seteditValue({
+                ...editValue,
+                myExperiencesDescription: ExperiencesDescription.description
+            });
+        }
+
         setExperiencesDescription({
             ...ExperiencesDescription,
             show: !ExperiencesDescription.show,
@@ -22,34 +35,31 @@ const Experiences = () => {
 
 
     // addExperiences 
-    const [addExperiences, setaddExperiences] = useState([
-        {
-            name: 'Front End Developer',
-            description: 'Build user-friendly interfaces, optimize performance, and maintain code quality.',
-            date: '2024-11-18', // Eklenen tarih
-        },
-        {
-            name: 'Back End Developer',
-            description: 'Develop server-side logic, manage databases, and optimize application performance.',
-            date: '2023-09-10', // Eklenen tarih
-        },
-        {
-            name: 'Full Stack Developer',
-            description: 'Develop both front-end and back-end features for web applications.',
-            date: '2022-05-15', // Eklenen tarih
-        }
-    ]);
+    const [addExperiences, setaddExperiences] = useState(Experiences);
 
     const [editExperiences, seteditExperiences] = useState(null);
 
     const handleAddService = () => {
-        setaddExperiences([...addExperiences, { name: '', description: '', date: '' }]);
+
+        const newExperiences = { name: '', description: '', date: '' }
+        const upDateExperiences = [...addExperiences, newExperiences]
+        setaddExperiences(upDateExperiences)
+
+        seteditValue({
+            ...editValue,
+            Experiences: upDateExperiences
+        })
+
     };
 
     const removeItem = (index) => {
         const newService = [...addExperiences];
         newService.splice(index, 1);
         setaddExperiences(newService);
+
+        seteditValue({ ...editValue, Experiences: newService });
+
+
     };
 
     const handleEditExperiencesShow = (index) => {
@@ -122,9 +132,14 @@ const Experiences = () => {
                                 <button onClick={() => removeItem(index)}>
                                     <i className="fa-solid fa-trash text-red-500 text-[18px]"></i>
                                 </button>
-                                <button onClick={() => handleEditExperiencesShow(index)}>
-                                    <i className="fa-regular fa-pen-to-square text-slate-400 text-[18px]"></i>
-                                </button>
+
+                                {
+                                    editExperiences === index ? null : <button onClick={() => handleEditExperiencesShow(index)}>
+                                        <i className="fa-regular fa-pen-to-square text-slate-400 text-[18px]"></i>
+                                    </button>
+                                }
+
+
                             </div>
 
                             {/* Edit Mode */}
@@ -173,7 +188,11 @@ const Experiences = () => {
                                     </div>
                                     <div>
                                         <button
-                                            onClick={() => handleEditExperiencesShow(index)}
+                                            onClick={() => {
+                                                handleEditExperiencesShow(index)
+                                                seteditValue({ ...editValue, Experiences: addExperiences });
+
+                                            }}
                                             type="submit"
                                             className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 rounded-lg transition duration-300 ease-in-out"
                                         >
@@ -185,7 +204,7 @@ const Experiences = () => {
                                 <div className="flex flex-col justify-evenly w-full h-full text-left space-y-4">
                                     <div className="py-4">
                                         <p className="text-[#EAB308] text-lg md:text-[26px] font-semibold">
-                                            {Experiences.date || "Experiences date"}
+                                            {Experiences.date.split("T")[0] || "Experiences date"}
                                         </p>
                                     </div>
                                     <div className="w-full py-4">

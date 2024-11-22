@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Button from './Button'
+import { PortfolioContext } from '../context/ContextPorfolio'
 
 const Portfolio = () => {
+
+    const { portfolioData, seteditValue, editValue } = useContext(PortfolioContext)
+    const { myPortfolio, myPortfolioDescription } = portfolioData
 
     // edit portfolio description
     const [portfolioDescription, setportfolioDescription] = useState({
         show: false,
-        description: 'There are many variations of passages ofLorem Ipsum available, but the majority havesuffered alteration in some form, by injected humour'
+        description: myPortfolioDescription
     })
     const handlePortfolioDescriptionChange = (event) => {
         setportfolioDescription({
@@ -15,6 +19,14 @@ const Portfolio = () => {
         })
     }
     const showPortfolioDescription = () => {
+
+        if(portfolioDescription.show){
+            seteditValue({
+                ...editValue,
+                myPortfolioDescription: portfolioDescription.description
+            });
+        }
+
         setportfolioDescription({
             ...portfolioDescription,
             show: !portfolioDescription.show,
@@ -23,26 +35,26 @@ const Portfolio = () => {
 
 
     // add portfolio img 
-    const [portfolioImg, setportfolioImg] = useState([])
+    const [portfolioImg, setportfolioImg] = useState(myPortfolio)
     const handleAddPortfolio = () => {
         if (portfolioImg.length >= 5) {
             return
         }
-        setportfolioImg([
-            ...portfolioImg,
-            {
-                name: '',
-                image: null,
-            }
-        ])
+
+        const newPortfolioImg = { image: null, imageObjUrl: null };
+        const updatePorfolio = [...portfolioImg, newPortfolioImg]
+        setportfolioImg(updatePorfolio)
+        seteditValue({ ...editValue, myPortfolio: updatePorfolio })
     }
     const handleImageChange = (event, index) => {
         const file = event.target.files[0];
         if (!file) return;
 
         const newPortfolioImg = [...portfolioImg];
-        newPortfolioImg[index].image = URL.createObjectURL(file);
+        newPortfolioImg[index].image = file;
+        newPortfolioImg[index].imageObjUrl = URL.createObjectURL(file);
         setportfolioImg(newPortfolioImg);
+        seteditValue({ ...editValue, myPortfolio: newPortfolioImg })
 
     };
 
@@ -104,7 +116,8 @@ const Portfolio = () => {
                         <label
                             className="flex relative flex-col items-center justify-center w-full h-full border border-dashed border-gray-400 rounded-lg cursor-pointer hover:bg-gray-100"
                             style={{
-                                backgroundImage: `url(${portfolioImg[0].image})`,
+                                backgroundImage: `url(${portfolioImg[0].imageObjUrl && portfolioImg[0].imageObjUrl !== null ? portfolioImg[0].imageObjUrl : portfolioImg[0].image
+                                    })`,
                                 backgroundSize: "cover",
                                 backgroundPosition: "center",
                                 backgroundRepeat: "no-repeat",
@@ -128,7 +141,8 @@ const Portfolio = () => {
                                     <label
                                         className="flex relative flex-col items-center justify-center w-full h-full border border-dashed border-gray-400 rounded-lg cursor-pointer hover:bg-gray-100"
                                         style={{
-                                            backgroundImage: `url(${item.image})`,
+                                            backgroundImage: `url(${item.imageObjUrl && item.imageObjUrl !== null ? item.imageObjUrl : item.image
+                                                })`,
                                             backgroundSize: "cover",
                                             backgroundPosition: "center",
                                             backgroundRepeat: "no-repeat",

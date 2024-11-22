@@ -12,19 +12,30 @@ const Service = () => {
     const [editServiceShow, setEditServiceShow] = useState(null);
 
     const handleAddService = () => {
-        setAddService([...addService, { name: '', description: '', img: '' }]);
+
+        const newService = { name: '', description: '', img: '' };
+
+        const updatedServices = [...addService, newService];
+
+        setAddService(updatedServices);
+
+        seteditValue({
+            ...editValue,
+            service: updatedServices
+        })
     };
 
     const removeItem = (index) => {
         const newService = [...addService];
         newService.splice(index, 1);
         setAddService(newService);
+
+        seteditValue({ ...editValue, service: newService });
     };
 
     const handleEditServiceShow = (index) => {
         setEditServiceShow(editServiceShow === index ? null : index);
     };
-
     const handleImageChange = (event, index) => {
         const file = event.target.files[0];
         if (!file) return;
@@ -33,7 +44,6 @@ const Service = () => {
         newServiceImg[index].img = URL.createObjectURL(file);
         setAddService(newServiceImg);
     };
-
     const handleInputChange = (event, index, field) => {
         const value = event.target.value;
         const newService = [...addService];
@@ -68,7 +78,7 @@ const Service = () => {
     }
 
     return (
-        <div className="bg-[#111827] w-full">
+        <div className="bg-[#111827] w-full break-words">
             <div className="container mx-auto py-[90px] px-4">
                 <div className="w-full md:w-[445px] mb-8">
                     <p className="text-[32px] md:text-[42px] text-white font-bold">
@@ -124,9 +134,12 @@ const Service = () => {
                                 <button onClick={() => removeItem(index)}>
                                     <i className="fa-solid fa-trash text-red-500 text-[17px]"></i>
                                 </button>
-                                <button onClick={() => handleEditServiceShow(index)}>
-                                    <i className="fa-regular fa-pen-to-square text-slate-400 text-[17px]"></i>
-                                </button>
+                                {
+                                    editServiceShow === index ? null :
+                                        <button onClick={() => handleEditServiceShow(index)}>
+                                            <i className="fa-regular fa-pen-to-square text-slate-400 text-[17px]"></i>
+                                        </button>
+                                }
                             </div>
 
                             {/* Image Section */}
@@ -205,6 +218,7 @@ const Service = () => {
                                         <button
                                             onClick={() => {
                                                 handleEditServiceShow(index);
+                                                seteditValue({ ...editValue, service: addService });
                                             }}
                                             type="submit"
                                             className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 rounded-lg"
