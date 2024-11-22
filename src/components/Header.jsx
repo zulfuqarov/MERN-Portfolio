@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import ProfileImg from '../Assets/Img/ProfileImg.svg'
 import Button from './Button'
+import { PortfolioContext } from '../context/ContextPorfolio'
 const Header = () => {
+
+    const { portfolioData, seteditValue, editValue } = useContext(PortfolioContext)
+    const { headerTitile, headerDescription, headerImg } = portfolioData
 
     // edit about title
     const [AboutTitle, setAboutTitle] = useState({
         show: false,
-        title: 'Welcome to My Portfolio'
+        title: headerTitile
     })
     const handleAboutTitleChange = (event) => {
         setAboutTitle({
@@ -15,6 +19,12 @@ const Header = () => {
         })
     }
     const showAboutTitle = () => {
+        if (AboutTitle.show) {
+            seteditValue({
+                ...editValue,
+                headerTitile: AboutTitle.title
+            })
+        }
         setAboutTitle({
             ...AboutTitle,
             show: !AboutTitle.show,
@@ -25,7 +35,7 @@ const Header = () => {
     // edit about description
     const [AboutDescription, setaboutDescription] = useState({
         show: false,
-        description: 'There are many variations of passages ofLorem Ipsum available, but the majority havesuffered alteration in some form, by injected humour'
+        description: headerDescription
     })
     const handleAboutDescriptionChange = (event) => {
         setaboutDescription({
@@ -34,6 +44,14 @@ const Header = () => {
         })
     }
     const showAboutDescription = () => {
+
+        if (AboutDescription.show) {
+            seteditValue({
+                ...editValue,
+                headerDescription: AboutDescription.description
+            })
+        }
+
         setaboutDescription({
             ...AboutDescription,
             show: !AboutDescription.show,
@@ -41,13 +59,16 @@ const Header = () => {
     }
 
     // add Header img 
-    const [portfolioImg, setPortfolioImg] = useState()
+    const [portfolioImg, setPortfolioImg] = useState(headerImg)
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         if (!file) return;
 
         setPortfolioImg(URL.createObjectURL(file))
-
+        seteditValue({
+            ...editValue,
+            headerImg: file,
+        })
     };
 
     return (

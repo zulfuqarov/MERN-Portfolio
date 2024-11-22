@@ -2,7 +2,7 @@ import expres from "express";
 import User from "../model/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { authenticateToken } from "../middleware/CheckToken.js";
+import Portfolio from "../model/Portfolio.js";
 
 const router = expres.Router();
 
@@ -60,6 +60,7 @@ router.post("/Login", async (req, res) => {
     }
 
     const payload = {
+      userName: user.name,
       user: user._id,
       role: user.role,
     };
@@ -68,9 +69,21 @@ router.post("/Login", async (req, res) => {
     });
 
     res.cookie("jwtToken", token, {
-      httpOnly: true,
+      // httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 7,
     });
+
+    const PortfolioCheck = await Portfolio.findOne({
+      userId: user._id,
+    });
+
+    if (!PortfolioCheck) {
+      const newPortfolio = new Portfolio({
+        userName: user.name,
+        userId: user._id,
+      });
+      await newPortfolio.save();
+    }
 
     res.status(200).json({
       message: "Your login has been successfully completed",
@@ -81,22 +94,24 @@ router.post("/Login", async (req, res) => {
   }
 });
 
-router.post(
-  "/Logout",
-  authenticateToken(["admin","user"]),
-  async (req, res) => {
-    try {
-      res.clearCookie("jwtToken", {
-        httpOnly: true,
-        secure: true, // Sadece HTTPS üzerinden gönderim için
-        sameSite: "strict",
-      });
-      res.status(200).json({ message: "Profile has been logged out" });
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({ message: "Internal server error" });
+router.post("/Logout", async (req, res) => {
+  const token = req.cookies.jwtToken;
+
+  try {
+    if (!token) {
+      res.status(400).json({ message: "profile not sigin" });
+      return;
     }
+    res.clearCookie("jwtToken", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+    });
+    res.status(200).json({ message: "Profile has been logged out" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Internal server error" });
   }
-);
+});
 
 export default router;

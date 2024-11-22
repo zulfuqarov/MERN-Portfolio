@@ -1,25 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Button from './Button';
+import { PortfolioContext } from '../context/ContextPorfolio'
 
 
 const Service = () => {
-    const [addService, setAddService] = useState([
-        {
-            name: 'Front End Developer',
-            description: 'Build user-friendly interfaces, optimize performance, and maintain code quality.',
-            img: 'https://e7.pngegg.com/pngimages/147/317/png-clipart-html-computer-icons-web-development-bootstrap-world-wide-web-text-trademark.png'
-        },
-        {
-            name: 'Front End Developer',
-            description: 'Build user-friendly interfaces, optimize performance, and maintain code quality.',
-            img: 'https://www.pngkit.com/png/detail/37-376182_web-development-icon.png'
-        },
-        {
-            name: 'Front End Developer',
-            description: 'Build user-friendly interfaces, optimize performance, and maintain code quality.',
-            img: 'https://yandex.ru/images/search?pos=1&from=tabbar&img_url=https%3A%2F%2Fimage.pngaaa.com%2F946%2F4178946-middle.png&text=html+icon&rpt=simage&lr=10253'
-        }
-    ]);
+
+    const { portfolioData, seteditValue, editValue } = useContext(PortfolioContext)
+    const { service, serviceDescription } = portfolioData
+
+    const [addService, setAddService] = useState(service);
     const [editServiceShow, setEditServiceShow] = useState(null);
 
     const handleAddService = () => {
@@ -55,7 +44,7 @@ const Service = () => {
     // edit Service description
     const [ServiceDescription, setServiceDescription] = useState({
         show: false,
-        description: 'There are many variations of passages ofLorem Ipsum available, but the majority havesuffered alteration in some form, by injected humour'
+        description: serviceDescription
     })
     const handleAboutDescriptionChange = (event) => {
         setServiceDescription({
@@ -64,6 +53,14 @@ const Service = () => {
         })
     }
     const showAboutDescription = () => {
+
+        if (ServiceDescription.show) {
+            seteditValue({
+                ...editValue,
+                serviceDescription: ServiceDescription.description
+            });
+        }
+
         setServiceDescription({
             ...ServiceDescription,
             show: !ServiceDescription.show,

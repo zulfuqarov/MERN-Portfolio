@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import ProfileImg from '../Assets/Img/ProfileImg.svg'
 import Button from './Button'
+import { PortfolioContext } from '../context/ContextPorfolio'
+
 const Section = () => {
+    const { portfolioData, seteditValue, editValue } = useContext(PortfolioContext)
+    const { aboutMeDescription, aboutMeImg } = portfolioData
 
     // edit aboutMe description
     const [AboutMeDescription, setAboutMeDescription] = useState({
         show: false,
-        description: 'There are many variations of passages ofLorem Ipsum available, but the majority havesuffered alteration in some form, by injected humour'
+        description: aboutMeDescription
     })
     const handleAboutDescriptionChange = (event) => {
         setAboutMeDescription({
@@ -15,6 +19,14 @@ const Section = () => {
         })
     }
     const showAboutDescription = () => {
+
+        if (AboutMeDescription.show) {
+            seteditValue({
+                ...editValue,
+                aboutMeDescription: AboutMeDescription.description,
+            })
+        }
+
         setAboutMeDescription({
             ...AboutMeDescription,
             show: !AboutMeDescription.show,
@@ -22,13 +34,16 @@ const Section = () => {
     }
 
     // add AbutMe img 
-    const [AboutMeImg, setAboutMeImg] = useState()
+    const [AboutMeImg, setAboutMeImg] = useState(aboutMeImg)
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         if (!file) return;
 
         setAboutMeImg(URL.createObjectURL(file))
-
+        seteditValue({
+            ...editValue,
+            aboutMeImg: file,
+        })
     };
 
     return (
@@ -71,7 +86,7 @@ const Section = () => {
                             <h1 className="text-white font-bold text-[28px] md:text-[42px]">About <span>Me</span></h1>
                         </div>
                         <div>
-                        {
+                            {
                                 AboutMeDescription.show
                                     ?
                                     <textarea
