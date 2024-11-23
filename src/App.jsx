@@ -11,10 +11,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import { navigateLogin } from "./api.js"
 
 import { PortfolioContext } from './context/ContextPorfolio.jsx'
+import Button from './components/Button.jsx'
 
 
 const App = () => {
-  const { loading, getPortfolio } = useContext(PortfolioContext)
+  const { loading, getPortfolio, editPortfolioFunc } = useContext(PortfolioContext)
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -36,6 +37,7 @@ const App = () => {
           <Navbar />
       }
       <ToastContainer />
+      <Button func={editPortfolioFunc} text="Save" classProps=" fixed bottom-[30px] right-[30px] hover:bg-white hover:text-black z-50" />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path="/Login" element={<Login />} />

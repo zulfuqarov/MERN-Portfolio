@@ -6,21 +6,31 @@ import mongoose from "mongoose";
 const router = express.Router();
 router.use(authenticateToken(["user", "admin"]));
 
-// router.post("/", async (req, res) => {
-//   try {
-//     const portfolio = new Portfolio({
-//       ...req.body,
-//       userName: req.user.userName,
-//       userId: req.user.user,
-//     });
-//     await portfolio.save();
-//     res
-//       .status(200)
-//       .json({ message: "portfolio succesfly save", portfolio: portfolio });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const data = req.body;
+  try {
+    console.log(id);
+    console.log(data);
+    console.log(req.files);
+
+    // const updatePortfolio = await Portfolio.findByIdAndUpdate(
+    //   id,
+    //   {
+    //     $set: {
+    //       ...data,
+    //     },
+    //   },
+    //   { new: true }
+    // );
+    // if (!updatePortfolio) {
+    //   return res.status(404).json({ message: "Portfolio not found" });
+    // }
+    // res.status(200).json(updatePortfolio);
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 router.get("/", async (req, res) => {
   try {

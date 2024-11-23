@@ -51,13 +51,13 @@ const PortfolioSchema = mongoose.Schema({
         },
       },
     ],
-    default: [
-      {
-        img: "https://assets-global.website-files.com/6275222db3d827e224b5c025/6275222db3d827ac5eb5c0cb_product-image__no-photo-p-2600.webp",
-        name: "Service Name",
-        description: "Service Description",
-      },
-    ],
+    // default: [
+    //   {
+    //     img: "https://assets-global.website-files.com/6275222db3d827e224b5c025/6275222db3d827ac5eb5c0cb_product-image__no-photo-p-2600.webp",
+    //     name: "Service Name",
+    //     description: "Service Description",
+    //   },
+    // ],
   },
   myPortfolio: {
     type: [
@@ -106,13 +106,13 @@ const PortfolioSchema = mongoose.Schema({
         },
       },
     ],
-    default: [
-      {
-        date: new Date(),
-        experiencesName: "Experiences Name",
-        experiencesDescription: "Experiences Description",
-      },
-    ],
+    // default: [
+    //   {
+    //     date: new Date(),
+    //     experiencesName: "Experiences Name",
+    //     experiencesDescription: "Experiences Description",
+    //   },
+    // ],
   },
   contactDescription: {
     type: String,
