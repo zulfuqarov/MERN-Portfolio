@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Button from './Button'
 import instagram from '../Assets/Img/instagram.svg'
 import facebook from '../Assets/Img/facebook.svg'
 import youtube from '../Assets/Img/yotube.svg'
 import linkedin from '../Assets/Img/linkedin.svg'
 import twitter from '../Assets/Img/twitter.svg'
+import { PortfolioContext } from '../context/ContextPorfolio'
 
 import { Link } from 'react-router-dom'
 
@@ -17,10 +18,14 @@ const socialMediaImages = {
 };
 
 const Footer = () => {
+
+    const { portfolioData, seteditValue, editValue } = useContext(PortfolioContext)
+    const { socialMedia, footerAboutDescription } = portfolioData
+
     // edit portfolio description
     const [AboutDescription, setaboutDescription] = useState({
         show: false,
-        description: 'There are many variations of passages ofLorem Ipsum available, but the majority havesuffered alteration in some form, by injected humour'
+        description: footerAboutDescription
     })
     const handleAboutDescriptionChange = (event) => {
         setaboutDescription({
@@ -29,6 +34,14 @@ const Footer = () => {
         })
     }
     const showAboutDescription = () => {
+
+        if (AboutDescription.show) {
+            seteditValue({
+                ...editValue,
+                footerAboutDescription: AboutDescription.description
+            })
+        }
+
         setaboutDescription({
             ...AboutDescription,
             show: !AboutDescription.show,
@@ -49,8 +62,18 @@ const Footer = () => {
     const handleHover = (name) => {
         sethoveredName(name)
     }
-    const handleCheck = () => {
+    const handleCheck = (name) => {
         sethoveredName('')
+        seteditValue({
+            ...editValue,
+            socialMedia: [
+                ...(editValue?.socialMedia?.filter(item => item.name !== name) || []),
+                {
+                    name: name,
+                    url: dataFooter[name],
+                }
+            ]
+        })
     }
 
     const handleChangeSocialMediaInput = (event) => {
@@ -118,7 +141,7 @@ const Footer = () => {
                                     placeholder={`enter your ${hoveredName} url`}
                                     className='w-full h-[50px] text-[16px] font-semibold px-[15px] bg-[#1F2937] text-white placeholder:text-slate-400 placeholder:text-[15px]' type="text" />
                                 <button
-                                    onClick={handleCheck}
+                                    onClick={() => handleCheck(hoveredName)}
                                 >
                                     <i className="pl-[15px] fa-solid fa-check text-green-500 text-[18px]"></i>
                                 </button>
@@ -188,15 +211,15 @@ const Footer = () => {
                     }
 
 
-                    {
+                    {/* {
                         Object.keys(dataFooter).map((oneMap, index) => (
                             dataFooter[oneMap] &&
-                            <a target="_blank"  // Yeni sekmede açılmasını sağlar
+                            <a target="_blank"
                                 href={`${dataFooter[oneMap]}`} className='flex flex-col' key={index}>
                                 <img src={socialMediaImages[oneMap]} alt="" />
                             </a>
                         ))
-                    }
+                    } */}
 
 
                 </div>
