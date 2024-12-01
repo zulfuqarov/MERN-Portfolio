@@ -46,14 +46,29 @@ const ContextPorfolio = ({ children }) => {
     const [editPortfolio, seteditPortfolio] = useState()
     const editPortfolioFunc = async (id) => {
         console.log(editValue)
-        // const formData = new FormData()
-        // Object.keys(editValue).forEach((name) => formData.append(`${name}`, editValue[name]))
-        // formData.append("headerImg", editValue.headerImg)
+        const formData = new FormData()
+
+        formData.append("data", JSON.stringify(editValue))
+        formData.append("headerImg", editValue.headerImg)
+        formData.append("aboutMeImg", editValue.aboutMeImg)
+
+        if (editValue && editValue.myPortfolio && editValue.myPortfolio.length > 0) {
+            for (let i = 0; i < editValue.myPortfolio.length; i++) {
+                formData.append("PortfolioImg", editValue.myPortfolio[i].image)
+            }
+        }
+
+        if (editValue && editValue.service && editValue.service.length > 0) {
+            for (let i = 0; i < editValue.service.length; i++) {
+                formData.append("serviceImg", editValue.service[i].img)
+            }
+        }
+
         try {
-            const response = await apiClient.put("/Portfolio/6741ffdd5fa8eb8cd4acd6ac", JSON.stringify(editValue))
+            const response = await apiClient.put("/Portfolio/6741ffdd5fa8eb8cd4acd6ac", formData)
             console.log((response).data)
         } catch (error) {
-            console.log()
+            console.log(error)
         }
     }
 

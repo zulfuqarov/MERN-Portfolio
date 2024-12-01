@@ -52,6 +52,7 @@ const Portfolio = () => {
 
         const newPortfolioImg = [...portfolioImg];
         newPortfolioImg[index].image = file;
+        newPortfolioImg[index].imageName = file.name;
         newPortfolioImg[index].imageObjUrl = URL.createObjectURL(file);
         setportfolioImg(newPortfolioImg);
         seteditValue({ ...editValue, myPortfolio: newPortfolioImg })

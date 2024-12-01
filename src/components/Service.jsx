@@ -41,7 +41,9 @@ const Service = () => {
         if (!file) return;
 
         const newServiceImg = [...addService];
-        newServiceImg[index].img = URL.createObjectURL(file);
+        newServiceImg[index].img = file;
+        newServiceImg[index].imageObjUrl = URL.createObjectURL(file);
+        newServiceImg[index].imageName = file.name;
         setAddService(newServiceImg);
     };
     const handleInputChange = (event, index, field) => {
@@ -150,7 +152,7 @@ const Service = () => {
                                             className="w-[40px] h-[40px] cursor-pointer"
                                             alt="Service"
                                             style={{
-                                                backgroundImage: `url(${service.img})`,
+                                                backgroundImage: `url(${service.imageObjUrl})`,
                                                 backgroundSize: "cover",
                                                 backgroundPosition: "center",
                                                 backgroundRepeat: "no-repeat",
