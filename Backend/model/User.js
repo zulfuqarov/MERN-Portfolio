@@ -18,6 +18,10 @@ const User = mongoose.Schema({
     type: String,
     default: "user",
   },
+  position: {
+    type: String,
+    required: true,
+  }
 });
 
 export default mongoose.model("User", User);

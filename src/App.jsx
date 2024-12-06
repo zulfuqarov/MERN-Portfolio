@@ -15,6 +15,7 @@ import Button from './components/Button.jsx'
 import Error from './pages/Error.jsx'
 import Register from './pages/Register.jsx'
 import MyPorfolio from './pages/MyPorfolio.jsx'
+import SearchPortfolio from './pages/SearchPortfolio.jsx'
 
 
 const App = () => {
@@ -47,6 +48,7 @@ const App = () => {
           <Button func={() => navigate("/Edit")} text="Edit" classProps="fixed bottom-[30px] right-[30px] hover:bg-white hover:text-black z-50" />
       }
       <Routes>
+        <Route path='/' element={<SearchPortfolio />} />
         <Route path='/MyPortfolio' element={<MyPorfolio />} />
         <Route path='/Edit' element={<Home />} />
         <Route path="/Login" element={<Login />} />

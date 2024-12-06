@@ -72,6 +72,23 @@ const Register = () => {
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                     <div className="space-y-6" >
                         <div>
+                            <div class="relative w-full">
+                                <button class="bg-[#020617] text-gray-300 px-4 py-2 rounded-lg w-full text-left">
+                                    Choose a position
+                                </button>
+                                <ul class="absolute bg-[#020617] text-gray-300 mt-2 w-full rounded-md shadow-lg max-h-[450px] overflow-y-auto">
+                                    <li class="px-4 py-2 hover:bg-gray-600 cursor-pointer">Frontend Developer</li>
+                                    <li class="px-4 py-2 hover:bg-gray-600 cursor-pointer">Backend Developer</li>
+                                    <li class="px-4 py-2 hover:bg-gray-600 cursor-pointer">Full Stack Developer</li>
+                                    <li class="px-4 py-2 hover:bg-gray-600 cursor-pointer">Mobile App Developer</li>
+                                    <li class="px-4 py-2 hover:bg-gray-600 cursor-pointer">Data Scientist</li>
+                                    <li class="px-4 py-2 hover:bg-gray-600 cursor-pointer">DevOps Engineer</li>
+                                    <li class="px-4 py-2 hover:bg-gray-600 cursor-pointer">UI/UX Designer</li>
+                                    <li class="px-4 py-2 hover:bg-gray-600 cursor-pointer">Game Developer</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
                             <label
                                 htmlFor="name"
                                 className="block text-sm font-medium text-white"

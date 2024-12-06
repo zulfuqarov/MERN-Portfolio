@@ -7,9 +7,9 @@ import Portfolio from "../model/Portfolio.js";
 const router = expres.Router();
 
 router.post("/Register", async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, position } = req.body;
 
-  if (name && email && password) {
+  if (name && email && password && position) {
     try {
       const CheckEmail = await User.findOne({
         email: email,
@@ -26,6 +26,7 @@ router.post("/Register", async (req, res) => {
         name: name,
         email: email,
         password: HashedPassword,
+        position: position,
       });
 
       await newUser.save();
