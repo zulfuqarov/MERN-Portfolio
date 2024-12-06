@@ -204,7 +204,7 @@ const Experiences = () => {
                                 <div className="flex flex-col justify-evenly w-full h-full text-left space-y-4">
                                     <div className="py-4">
                                         <p className="text-[#EAB308] text-lg md:text-[26px] font-semibold">
-                                            {Experiences.date.split("T")[0] || "Experiences date"}
+                                            {Experiences.date ? Experiences.date.split("T")[0] : "Experiences date"}
                                         </p>
                                     </div>
                                     <div className="w-full py-4">
@@ -225,7 +225,6 @@ const Experiences = () => {
                 </div>
             </div>
         </div>
-
     )
 }
 

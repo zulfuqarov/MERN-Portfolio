@@ -6,6 +6,8 @@ import MyPortfolioHeader from '../components/MyPortfolio/MyPortfolioHeader';
 import MyPortfolioAboutMe from '../components/MyPortfolio/MyPortfolioAboutMe';
 import MyPortfolioService from '../components/MyPortfolio/MyPortfolioService';
 import MyPortfolioPortfolio from '../components/MyPortfolio/MyPortfolioPortfolio';
+import MyPortfolioExperience from '../components/MyPortfolio/MyPortfolioExperience';
+import MyPortfolioContact from '../components/MyPortfolio/MyPortfolioContact';
 
 const MyPorfolio = () => {
     const navigate = useNavigate()
@@ -22,7 +24,9 @@ const MyPorfolio = () => {
             <MyPortfolioHeader />
             <MyPortfolioAboutMe />
             <MyPortfolioService />
-            <MyPortfolioPortfolio/>
+            <MyPortfolioPortfolio />
+            <MyPortfolioExperience />
+            <MyPortfolioContact />
         </div>
     )
 }
