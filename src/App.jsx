@@ -12,6 +12,9 @@ import { navigateLogin } from "./api.js"
 
 import { PortfolioContext } from './context/ContextPorfolio.jsx'
 import Button from './components/Button.jsx'
+import Error from './pages/Error.jsx'
+import Register from './pages/Register.jsx'
+import MyPorfolio from './pages/MyPorfolio.jsx'
 
 
 const App = () => {
@@ -19,28 +22,36 @@ const App = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const hideNavbar = ["/Login", "/Register"]
+  const hideNavbar = ["/Edit", "/MyPortfolio"]
 
   useEffect(() => {
-    navigateLogin(navigate)
-    getPortfolio()
+    if (!["/"].includes(location.pathname)) {
+      navigateLogin(navigate)
+      getPortfolio()
+    }
   }, [])
 
-  if (loading) {
+  if (loading && !["/"].includes(location.pathname)) {
     return <Loading />
   }
 
   return (
     <>
       {
-        hideNavbar.includes(location.pathname) ? null :
-          <Navbar />
+        hideNavbar.includes(location.pathname) ? <Navbar /> :
+          null
       }
       <ToastContainer />
-      <Button func={editPortfolioFunc} text="Save" classProps=" fixed bottom-[30px] right-[30px] hover:bg-white hover:text-black z-50" />
+      {
+        location.pathname === "/Edit" ? <Button func={editPortfolioFunc} text="Save" classProps="fixed bottom-[30px] right-[30px] hover:bg-white hover:text-black z-50" /> :
+          <Button func={() => navigate("/Edit")} text="Edit" classProps="fixed bottom-[30px] right-[30px] hover:bg-white hover:text-black z-50" />
+      }
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/MyPortfolio' element={<MyPorfolio />} />
+        <Route path='/Edit' element={<Home />} />
         <Route path="/Login" element={<Login />} />
+        <Route path="/Register" element={<Register />} />
+        <Route path="*" element={<Error />} />
       </Routes>
     </>
   )

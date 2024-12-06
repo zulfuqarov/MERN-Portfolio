@@ -164,43 +164,6 @@ const Portfolio = () => {
                 </div>
             )}
         </div>
-
-
-
-        // <div className="container mx-auto py-10 px-4">
-        //     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        //         {/* Sol Taraf (Tek Resim) */}
-        //         <div className="h-64 md:h-[565px]">
-        //             <div
-        //                 className="flex items-center justify-center w-full h-full rounded-lg"
-        //                 style={{
-        //                     backgroundImage: `url(https://i.pinimg.com/originals/8c/b3/4b/8cb34ba26d2bb76584541136f9b0aad5.jpg)`,
-        //                     backgroundSize: 'cover',
-        //                     backgroundPosition: 'center',
-        //                     backgroundRepeat: 'no-repeat',
-        //                 }}
-        //             ></div>
-        //         </div>
-
-        //         {/* Sağ Taraf (4 Resim - 2x2 Izgara) */}
-        //         <div className="grid grid-cols-2 gap-4">
-        //             {[1, 2, 3, 4].map((_, index) => (
-        //                 <div key={index} className="h-32 md:h-[265px]">
-        //                     <div
-        //                         className="flex items-center justify-center w-full h-full rounded-lg"
-        //                         style={{
-        //                             backgroundImage: `url(https://i.pinimg.com/originals/8c/b3/4b/8cb34ba26d2bb76584541136f9b0aad5.jpg)`,
-        //                             backgroundSize: 'cover',
-        //                             backgroundPosition: 'center',
-        //                             backgroundRepeat: 'no-repeat',
-        //                         }}
-        //                     ></div>
-        //                 </div>
-        //             ))}
-        //         </div>
-        //     </div>
-        // </div>
-
     )
 }
 

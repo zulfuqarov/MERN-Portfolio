@@ -45,6 +45,10 @@ const Service = () => {
         newServiceImg[index].imageObjUrl = URL.createObjectURL(file);
         newServiceImg[index].imageName = file.name;
         setAddService(newServiceImg);
+        seteditValue({
+            ...editValue,
+            service: newServiceImg
+        });
     };
     const handleInputChange = (event, index, field) => {
         const value = event.target.value;
@@ -152,7 +156,7 @@ const Service = () => {
                                             className="w-[40px] h-[40px] cursor-pointer"
                                             alt="Service"
                                             style={{
-                                                backgroundImage: `url(${service.imageObjUrl})`,
+                                                backgroundImage: `url(${service.imageObjUrl ? service.imageObjUrl : service.img})`,
                                                 backgroundSize: "cover",
                                                 backgroundPosition: "center",
                                                 backgroundRepeat: "no-repeat",

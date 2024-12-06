@@ -1,8 +1,24 @@
 import React, { useState } from 'react'
 import Logo from '../Assets/Img/Logo.svg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import apiClient from '../api'
 const Navbar = () => {
+
+    const navigate = useNavigate()
+
     const [menuOpen, setMenuOpen] = useState(false)
+
+
+    const logOut = async () => {
+        try {
+            const response = await apiClient.post("/Auth/Logout")
+            console.log(response.data)
+            navigate("/Login", { replace: true })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <div className="mx-auto container pt-[30px] px-4">
             <div className="flex justify-between items-center w-full">
@@ -16,10 +32,17 @@ const Navbar = () => {
                     <Link href="#">Home</Link>
                     <Link href="#">About</Link>
                     <Link href="#">Service</Link>
-                    <Link href="#">Portfolio</Link>
+                    <Link to="/MyPortfolio">MyPortfolio</Link>
                     <Link href="#">Resume</Link>
                     <Link href="#">Blog</Link>
                     <Link href="#">Contact</Link>
+                    <button
+                        onClick={logOut}
+                        className='bg-[#FACC15] text-[13px] hover:text-white text-black p-[5px] rounded flex  justify-center items-center'
+                    >
+                        Logut
+                        <i className="pl-[15px] fa-solid fa-right-from-bracket"></i>
+                    </button>
                 </div>
 
                 <div className="md:hidden">

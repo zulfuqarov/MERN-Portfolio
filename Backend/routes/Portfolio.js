@@ -7,72 +7,66 @@ import mongoose from "mongoose";
 const router = express.Router();
 router.use(authenticateToken(["user", "admin"]));
 
-router.put("/:id", async (req, res) => {
-  const { id } = req.params;
+router.put("/", async (req, res) => {
   const { data } = req.body;
   const file = req.files;
 
   const dataParse = JSON.parse(data);
 
   if (file && file.PortfolioImg) {
-    if (Array.isArray(file.PortfolioImg)) {
-      for (const index in dataParse.myPortfolio) {
-        const portfolioItem = dataParse.myPortfolio[index];
-        const matchingFile = file.PortfolioImg.find(
+    for (const index in dataParse.myPortfolio) {
+      const portfolioItem = dataParse.myPortfolio[index];
+      let matchingFile = null;
+
+      if (Array.isArray(file.PortfolioImg)) {
+        matchingFile = file.PortfolioImg.find(
           (item) => item.name === portfolioItem.imageName
         );
-
-        if (matchingFile && matchingFile.tempFilePath) {
-          const uploadImg = await cloudinary.uploader.upload(
-            matchingFile.tempFilePath,
-            {
-              use_filename: true,
-              folder: "Home",
-            }
-          );
-          portfolioItem.image = uploadImg.url;
-        }
+      } else if (file.PortfolioImg && file.PortfolioImg.name === portfolioItem.imageName) {
+        matchingFile = file.PortfolioImg;
       }
-    } else {
-      const uploadImg = await cloudinary.uploader.upload(
-        file.PortfolioImg.tempFilePath,
-        {
-          use_filename: true,
-          folder: "Home",
-        }
-      );
-      dataParse.myPortfolio[0].image = uploadImg.url;
+
+      if (matchingFile && matchingFile.tempFilePath) {
+        const uploadImg = await cloudinary.uploader.upload(
+          matchingFile.tempFilePath,
+          {
+            use_filename: true,
+            folder: "Home",
+          }
+        );
+        portfolioItem.image = uploadImg.url;
+      } else {
+        portfolioItem.image = portfolioItem.image ? portfolioItem.image : ''
+      }
     }
+
   }
 
   if (file && file.serviceImg) {
-    if (Array.isArray(file.serviceImg)) {
-      for (const index in dataParse.service) {
-        const serviceItem = dataParse.service[index];
-        const matchingFile = file.serviceImg.find(
+    for (const index in dataParse.service) {
+      const serviceItem = dataParse.service[index];
+      let matchingFile = null;
+
+      if (Array.isArray(file.serviceImg)) {
+        matchingFile = file.serviceImg.find(
           (item) => item.name === serviceItem.imageName
         );
-
-        if (matchingFile && matchingFile.tempFilePath) {
-          const uploadImg = await cloudinary.uploader.upload(
-            matchingFile.tempFilePath,
-            {
-              use_filename: true,
-              folder: "Home",
-            }
-          );
-          serviceItem.img = uploadImg.url;
-        }
+      } else if (file.serviceImg && file.serviceImg.name === serviceItem.imageName) {
+        matchingFile = file.serviceImg;
       }
-    } else {
-      const uploadImg = await cloudinary.uploader.upload(
-        file.serviceImg.tempFilePath,
-        {
-          use_filename: true,
-          folder: "Home",
-        }
-      );
-      dataParse.service[0].img = uploadImg.url;
+
+      if (matchingFile && matchingFile.tempFilePath) {
+        const uploadImg = await cloudinary.uploader.upload(
+          matchingFile.tempFilePath,
+          {
+            use_filename: true,
+            folder: "Home",
+          }
+        );
+        serviceItem.img = uploadImg.url;
+      } else {
+        serviceItem.img = serviceItem.img ? serviceItem.img : ''
+      }
     }
   }
 
@@ -106,6 +100,7 @@ router.put("/:id", async (req, res) => {
       {
         $set: {
           ...dataParse,
+          edit: true
         },
       },
       { new: true }
@@ -114,6 +109,7 @@ router.put("/:id", async (req, res) => {
       return res.status(404).json({ message: "Portfolio not found" });
     }
     res.status(200).json(updatePortfolio);
+
   } catch (error) {
     console.log(error);
   }

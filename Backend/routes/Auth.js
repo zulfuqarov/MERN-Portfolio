@@ -73,21 +73,22 @@ router.post("/Login", async (req, res) => {
       maxAge: 1000 * 60 * 60 * 24 * 7,
     });
 
-    const PortfolioCheck = await Portfolio.findOne({
+    let PortfolioCheck = await Portfolio.findOne({
       userId: user._id,
     });
 
     if (!PortfolioCheck) {
-      const newPortfolio = new Portfolio({
+      PortfolioCheck = new Portfolio({
         userName: user.name,
         userId: user._id,
       });
-      await newPortfolio.save();
+      await PortfolioCheck.save();
     }
 
     res.status(200).json({
       message: "Your login has been successfully completed",
       token,
+      edit: PortfolioCheck.edit
     });
   } catch (error) {
     console.log(error);

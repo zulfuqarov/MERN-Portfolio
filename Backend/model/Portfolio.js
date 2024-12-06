@@ -106,13 +106,6 @@ const PortfolioSchema = mongoose.Schema({
         },
       },
     ],
-    // default: [
-    //   {
-    //     date: new Date(),
-    //     experiencesName: "Experiences Name",
-    //     experiencesDescription: "Experiences Description",
-    //   },
-    // ],
   },
   contactDescription: {
     type: String,
@@ -150,6 +143,10 @@ const PortfolioSchema = mongoose.Schema({
       },
     },
   ],
+  edit: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 export default mongoose.model("Portfolio", PortfolioSchema);
