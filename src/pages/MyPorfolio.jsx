@@ -8,6 +8,7 @@ import MyPortfolioService from '../components/MyPortfolio/MyPortfolioService';
 import MyPortfolioPortfolio from '../components/MyPortfolio/MyPortfolioPortfolio';
 import MyPortfolioExperience from '../components/MyPortfolio/MyPortfolioExperience';
 import MyPortfolioContact from '../components/MyPortfolio/MyPortfolioContact';
+import MyPotfolioFotter from '../components/MyPortfolio/MyPotfolioFotter';
 
 const MyPorfolio = () => {
     const navigate = useNavigate()
@@ -27,6 +28,7 @@ const MyPorfolio = () => {
             <MyPortfolioPortfolio />
             <MyPortfolioExperience />
             <MyPortfolioContact />
+            <MyPotfolioFotter />
         </div>
     )
 }

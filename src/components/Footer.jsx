@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import Button from './Button'
 import instagram from '../Assets/Img/instagram.svg'
 import facebook from '../Assets/Img/facebook.svg'
@@ -83,6 +83,18 @@ const Footer = () => {
         })
     }
 
+    useEffect(() => {
+        if (socialMedia.length > 0) {
+            socialMedia.forEach((oneMap) => {
+                setdataFooter((prevFooter) => ({
+                    ...prevFooter, // Mevcut state'i korur
+                    [oneMap.name]: oneMap.url // Yeni değeri ekler
+                }));
+            });
+        }
+    }, []);
+    
+
     return (
         <div className='mx-auto container h-[55vh]'>
             <div className='flex justify-center items-center flex-col'>
@@ -136,7 +148,7 @@ const Footer = () => {
                             <div className='absolute w-full flex'>
                                 <input
                                     onChange={handleChangeSocialMediaInput}
-                                    value={dataFooter[hoveredName]}
+                                    value={dataFooter[hoveredName] || ''}
                                     name={hoveredName}
                                     placeholder={`enter your ${hoveredName} url`}
                                     className='w-full h-[50px] text-[16px] font-semibold px-[15px] bg-[#1F2937] text-white placeholder:text-slate-400 placeholder:text-[15px]' type="text" />
