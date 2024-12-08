@@ -12,11 +12,26 @@ const Register = () => {
         name: '',
         email: '',
         password: '',
+        position: ''
     })
     const [error, seterror] = useState({})
 
     const handleInputChange = (event) => {
         setregisterInput({ ...registerInput, [event.target.name]: event.target.value })
+    }
+
+    const [showPosition, setshowPosition] = useState(false)
+
+    const handleShowPosition = () => {
+        setshowPosition(!showPosition)
+    }
+
+    const chosePosition = (data) => {
+        setregisterInput({
+            ...registerInput,
+            position: data
+        })
+        setshowPosition(false)
     }
 
     const validationInput = () => {
@@ -32,6 +47,10 @@ const Register = () => {
 
         if (!registerInput.password || !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(registerInput.password)) {
             newErrors.password = 'Password must be 8+ chars, with uppercase, lowercase, number, and symbol.';
+        }
+
+        if (!registerInput.position) {
+            newErrors.position = 'Choose a position.'
         }
 
         return newErrors;
@@ -60,7 +79,7 @@ const Register = () => {
                 </Link>
             </div>
 
-            <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 bg-[#020617]">
+            <div className="flex min-h-full flex-col justify-center px-6 py-9 lg:px-8 bg-[#020617]">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <h1 className="text-3xl text-center font-bold text-transparent bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text drop-shadow-lg shadow-orange-500">
                         Portfolio
@@ -72,21 +91,28 @@ const Register = () => {
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                     <div className="space-y-6" >
                         <div>
-                            <div class="relative w-full">
-                                <button class="bg-[#020617] text-gray-300 px-4 py-2 rounded-lg w-full text-left">
+                            <div className="relative h-full w-full">
+                                <button
+                                    onClick={handleShowPosition}
+                                    className="bg-[#020617] text-gray-300 px-4 py-2 rounded-lg w-full text-left">
                                     Choose a position
                                 </button>
-                                <ul class="absolute bg-[#020617] text-gray-300 mt-2 w-full rounded-md shadow-lg max-h-[450px] overflow-y-auto">
-                                    <li class="px-4 py-2 hover:bg-gray-600 cursor-pointer">Frontend Developer</li>
-                                    <li class="px-4 py-2 hover:bg-gray-600 cursor-pointer">Backend Developer</li>
-                                    <li class="px-4 py-2 hover:bg-gray-600 cursor-pointer">Full Stack Developer</li>
-                                    <li class="px-4 py-2 hover:bg-gray-600 cursor-pointer">Mobile App Developer</li>
-                                    <li class="px-4 py-2 hover:bg-gray-600 cursor-pointer">Data Scientist</li>
-                                    <li class="px-4 py-2 hover:bg-gray-600 cursor-pointer">DevOps Engineer</li>
-                                    <li class="px-4 py-2 hover:bg-gray-600 cursor-pointer">UI/UX Designer</li>
-                                    <li class="px-4 py-2 hover:bg-gray-600 cursor-pointer">Game Developer</li>
-                                </ul>
+                                {
+                                    showPosition && <ul className="absolute bg-[#020617] text-gray-300 mt-2 w-full rounded-md shadow-lg h-[340px] overflow-y-auto">
+                                        <li className="px-4 py-2 hover:bg-gray-600 cursor-pointer">Frontend Developer</li>
+                                        <li className="px-4 py-2 hover:bg-gray-600 cursor-pointer">Backend Developer</li>
+                                        <li className="px-4 py-2 hover:bg-gray-600 cursor-pointer">Full Stack Developer</li>
+                                        <li className="px-4 py-2 hover:bg-gray-600 cursor-pointer">Mobile App Developer</li>
+                                        <li className="px-4 py-2 hover:bg-gray-600 cursor-pointer">Data Scientist</li>
+                                        <li className="px-4 py-2 hover:bg-gray-600 cursor-pointer">DevOps Engineer</li>
+                                        <li className="px-4 py-2 hover:bg-gray-600 cursor-pointer">UI/UX Designer</li>
+                                        <li className="px-4 py-2 hover:bg-gray-600 cursor-pointer">Game Developer</li>
+                                    </ul>
+                                }
                             </div>
+                            {
+                                error.position ? <p className='text-red-500 text-[13px] pt-[7px] h-[25px]'>{error.position}</p> : ''
+                            }
                         </div>
                         <div>
                             <label
