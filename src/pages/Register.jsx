@@ -1,8 +1,41 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import { PortfolioContext } from '../context/ContextPorfolio'
 import Loading from '../components/Loading'
 import Cookies from "js-cookie";
+
+const positions = [
+    { value: "frontend" },
+    { value: "backend" },
+    { value: "fullstack" },
+    { value: "mobile" },
+    { value: "data-scientist" },
+    { value: "devops" },
+    { value: "ui-ux" },
+    { value: "game-dev" },
+    { value: "ai-ml" },
+    { value: "cybersecurity" },
+    { value: "graphic-designer" },
+    { value: "motion-designer" },
+    { value: "visual-artist" },
+    { value: "photographer" },
+    { value: "videographer" },
+    { value: "project-manager" },
+    { value: "content-creator" },
+    { value: "marketing-specialist" },
+    { value: "seo-specialist" },
+    { value: "creative-technologist" },
+    { value: "problem-solver" },
+    { value: "innovator" },
+    { value: "lifelong-learner" },
+    { value: "storyteller" },
+    { value: "visionary-thinker" },
+    { value: "aspiring-frontend" },
+    { value: "junior-software" },
+    { value: "creative-enthusiast" },
+];
+
+
 
 const Register = () => {
 
@@ -61,15 +94,37 @@ const Register = () => {
         return <Loading />
     }
 
-    if (Cookies.get().jwtToken && portfolioData.edit) {
+    if (Cookies.get().jwtToken && portfolioData && portfolioData.edit) {
         return <Navigate to="/MyPortfolio" />;
     }
-    if (Cookies.get().jwtToken && !portfolioData.edit) {
+    if (Cookies.get().jwtToken && portfolioData && !portfolioData.edit) {
         return <Navigate to="/Edit" />;
     }
 
+    const ref = useRef(null)
+
+
+
+    useEffect(() => {
+
+        const handleClickOutside = (event) => {
+            if (ref.current && !ref.current.contains(event.target)) {
+                setshowPosition(false);
+            }
+        }
+
+        document.addEventListener('mousedown', (e) => {
+            handleClickOutside(e)
+        })
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+
+    }, [])
+
     return (
-        <div>
+        <div >
             <div className="flex justify-end items-center p-4">
                 <Link
                     to="/Login"
@@ -91,22 +146,24 @@ const Register = () => {
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                     <div className="space-y-6" >
                         <div>
-                            <div className="relative h-full w-full">
+                            <div ref={ref} className="relative  h-full w-full">
                                 <button
                                     onClick={handleShowPosition}
-                                    className="bg-[#020617] text-gray-300 px-4 py-2 rounded-lg w-full text-left">
-                                    Choose a position
+                                    className="bg-gray-800 text-gray-300 px-4 py-2 rounded-lg w-full text-left hover:bg-gray-600">
+                                    {
+                                        registerInput.position ? registerInput.position : "Choose a position"
+                                    }
                                 </button>
                                 {
                                     showPosition && <ul className="absolute bg-[#020617] text-gray-300 mt-2 w-full rounded-md shadow-lg h-[340px] overflow-y-auto">
-                                        <li className="px-4 py-2 hover:bg-gray-600 cursor-pointer">Frontend Developer</li>
-                                        <li className="px-4 py-2 hover:bg-gray-600 cursor-pointer">Backend Developer</li>
-                                        <li className="px-4 py-2 hover:bg-gray-600 cursor-pointer">Full Stack Developer</li>
-                                        <li className="px-4 py-2 hover:bg-gray-600 cursor-pointer">Mobile App Developer</li>
-                                        <li className="px-4 py-2 hover:bg-gray-600 cursor-pointer">Data Scientist</li>
-                                        <li className="px-4 py-2 hover:bg-gray-600 cursor-pointer">DevOps Engineer</li>
-                                        <li className="px-4 py-2 hover:bg-gray-600 cursor-pointer">UI/UX Designer</li>
-                                        <li className="px-4 py-2 hover:bg-gray-600 cursor-pointer">Game Developer</li>
+                                        {
+                                            positions &&
+                                            positions.map((oneMap, index) => (
+
+                                                <li onClick={() => chosePosition(oneMap.value)}
+                                                    key={index} className="px-4 py-2 hover:bg-gray-600 cursor-pointer">{oneMap.value}</li>
+                                            ))
+                                        }
                                     </ul>
                                 }
                             </div>
@@ -124,7 +181,7 @@ const Register = () => {
                             <div className="mt-2">
                                 <input
                                     onChange={handleInputChange}
-                                    value={registerInput.name}
+                                    value={registerInput.name }
                                     id="name"
                                     name="name"
                                     type="text"
@@ -173,7 +230,6 @@ const Register = () => {
                                 <input
                                     onChange={handleInputChange}
                                     value={registerInput.password}
-                                    id="password"
                                     name="password"
                                     type="password"
                                     autoComplete="current-password"

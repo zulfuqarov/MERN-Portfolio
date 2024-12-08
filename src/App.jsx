@@ -17,6 +17,7 @@ import Register from './pages/Register.jsx'
 import MyPorfolio from './pages/MyPorfolio.jsx'
 import SearchPortfolio from './pages/SearchPortfolio.jsx'
 
+import Cookies from "js-cookie";
 
 const App = () => {
   const { loading, getPortfolio, editPortfolioFunc } = useContext(PortfolioContext)
@@ -45,7 +46,9 @@ const App = () => {
       <ToastContainer />
       {
         location.pathname === "/Edit" ? <Button func={editPortfolioFunc} text="Save" classProps="fixed bottom-[30px] right-[30px] hover:bg-white hover:text-black z-50" /> :
-          <Button func={() => navigate("/Edit")} text="Edit" classProps="fixed bottom-[30px] right-[30px] hover:bg-white hover:text-black z-50" />
+          Cookies.get().jwtToken ?
+            <Button func={() => navigate("/Edit")} text="Edit" classProps="fixed bottom-[30px] right-[30px] hover:bg-white hover:text-black z-50" />
+            : ''
       }
       <Routes>
         <Route path='/' element={<SearchPortfolio />} />

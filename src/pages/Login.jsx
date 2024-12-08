@@ -23,10 +23,10 @@ const Login = () => {
 
 
 
-  if (Cookies.get().jwtToken && portfolioData.edit) {
+  if (Cookies.get().jwtToken && portfolioData && portfolioData.edit) {
     return <Navigate to="/MyPortfolio" />;
   }
-  if (Cookies.get().jwtToken && !portfolioData.edit) {
+  if (Cookies.get().jwtToken && portfolioData && !portfolioData.edit) {
     return <Navigate to="/Edit" />;
   }
   return (
