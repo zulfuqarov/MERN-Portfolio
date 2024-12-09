@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const PortfolioSchema = mongoose.Schema({
+  position: {
+    type: String,
+    required: true,
+  },
   userName: {
     type: String,
     required: true,

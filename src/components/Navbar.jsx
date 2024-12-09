@@ -1,8 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Logo from '../Assets/Img/Logo.svg'
 import { Link, useNavigate } from 'react-router-dom'
 import apiClient from '../api'
+import Cookies from "js-cookie";
+import { PortfolioContext } from '../context/ContextPorfolio';
+
 const Navbar = () => {
+
+    const { getPortfolio, setloading } = useContext(PortfolioContext)
 
     const navigate = useNavigate()
 
@@ -10,6 +15,7 @@ const Navbar = () => {
 
 
     const logOut = async () => {
+        setloading(true)
         try {
             const response = await apiClient.post("/Auth/Logout")
             console.log(response.data)
@@ -17,7 +23,36 @@ const Navbar = () => {
         } catch (error) {
             console.log(error)
         }
+        finally {
+            setloading(false)
+        }
     }
+
+
+    if (!Cookies.get().jwtToken) {
+        return (
+            <div className="mx-auto container pt-[30px] px-4">
+                <div className="flex justify-between items-center w-full">
+                    <Link to="/">
+                        <div>
+                            <img src={Logo} alt="Logo" />
+                        </div>
+                    </Link>
+
+                    <div className="hidden md:flex text-[#9CA3AF] justify-between items-center">
+                        <button
+                            onClick={() => getPortfolio()}
+                            className='bg-[#FACC15] px-[10px] py-[7px] w-[100px] text-center rounded text-black font-semibold hover:text-white transition-all'
+                        >
+                            Start
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        )
+    }
+
 
     return (
         <div className="mx-auto container pt-[30px] px-4">

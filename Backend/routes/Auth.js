@@ -64,6 +64,7 @@ router.post("/Login", async (req, res) => {
       userName: user.name,
       user: user._id,
       role: user.role,
+      position: user.position
     };
     const token = jwt.sign(payload, process.env.TOKEN_SECRET_CODE, {
       expiresIn: "3d",
@@ -82,6 +83,7 @@ router.post("/Login", async (req, res) => {
       PortfolioCheck = new Portfolio({
         userName: user.name,
         userId: user._id,
+        position: user.position
       });
       await PortfolioCheck.save();
     }

@@ -36,10 +36,9 @@ const positions = [
 ];
 
 
-
 const Register = () => {
 
-    const { Register, resgitserLodaing, portfolioData } = useContext(PortfolioContext)
+    const { Register, portfolioData } = useContext(PortfolioContext)
 
     const [registerInput, setregisterInput] = useState({
         name: '',
@@ -90,9 +89,7 @@ const Register = () => {
 
     }
 
-    if (resgitserLodaing) {
-        return <Loading />
-    }
+    
 
     if (Cookies.get().jwtToken && portfolioData && portfolioData.edit) {
         return <Navigate to="/MyPortfolio" />;

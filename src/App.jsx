@@ -24,11 +24,12 @@ const App = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const hideNavbar = ["/Edit", "/MyPortfolio"]
+  const hideNavbar = ["/Edit", "/MyPortfolio", "/"]
 
   useEffect(() => {
+    navigateLogin(navigate)
+
     if (!["/"].includes(location.pathname)) {
-      navigateLogin(navigate)
       getPortfolio()
     }
   }, [])

@@ -29,9 +29,8 @@ const ContextPorfolio = ({ children }) => {
         }
     }
 
-    const [resgitserLodaing, setresgitserLodaing] = useState(false)
     const Register = async (data) => {
-        setresgitserLodaing(true)
+        setloading(true)
         try {
             const response = await apiClient.post("/Auth/Register", data)
             console.log(response.data)
@@ -42,7 +41,7 @@ const ContextPorfolio = ({ children }) => {
             toast.error(error.response.data.message)
         }
         finally {
-            setresgitserLodaing(false)
+            setloading(false)
         }
     }
 
@@ -66,7 +65,6 @@ const ContextPorfolio = ({ children }) => {
     // Edit Value Start
     const [editValue, seteditValue] = useState({})
     const [editPortfolio, seteditPortfolio] = useState()
-
     const editPortfolioFunc = async () => {
         setloading(true)
 
@@ -98,17 +96,33 @@ const ContextPorfolio = ({ children }) => {
         }
     }
 
+    // Search Start
+    const [searchPortfolio, setsearchPortfolio] = useState([])
+    const searchPortfolioFunc = async (searchText) => {
+        try {
+            const response = await apiClient.post("/Portfolio/Search", {
+                search: searchText
+            })
+            console.log(response.data)
+            setsearchPortfolio(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <PortfolioContext.Provider value={{
+            setloading,
             loading,
             Register,
-            resgitserLodaing,
             Login,
             getPortfolio,
             portfolioData,
             seteditValue,
             editValue,
             editPortfolioFunc,
+            searchPortfolioFunc,
+            searchPortfolio
         }}>
             {children}
         </PortfolioContext.Provider>
