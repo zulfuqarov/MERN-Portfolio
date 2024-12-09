@@ -5,6 +5,23 @@ import cloudinary from "cloudinary";
 import mongoose from "mongoose";
 
 const router = express.Router();
+
+router.post("/Search", async (req, res) => {
+  const { search } = req.body
+  try {
+    const findPortfolio = await Portfolio.find({
+      position: { $regex: new RegExp("\\b" + search, "i") },
+    })
+    if (findPortfolio.length > 0) {
+      return res.status(200).json(findPortfolio);
+    } else {
+      return res.status(404).json({ message: "This User not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+})
+
 router.use(authenticateToken(["user", "admin"]));
 
 router.put("/", async (req, res) => {
@@ -130,19 +147,5 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/Search", async (req, res) => {
-  const { search } = req.body
-  try {
-    const findPortfolio = await Portfolio.find({
-      position: { $regex: new RegExp("\\b" + search, "i") },
-    })
-    if (findPortfolio.length > 0) {
-      return res.status(200).json(findPortfolio);
-    } else {
-      return res.status(404).json({ message: "This User not found" });
-    }
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-})
+
 export default router;

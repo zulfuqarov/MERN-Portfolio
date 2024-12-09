@@ -18,15 +18,14 @@ const ContextPorfolio = ({ children }) => {
         try {
             const response = await apiClient.get("/Portfolio")
             setportfolioData(response.data)
+            setloading(false)
             console.log(response)
         } catch (error) {
             console.log(error)
+            setloading(false)
             location.pathname === "/Login" ? '' :
                 toast.error(error.response.data.message)
-        }
-        finally {
-            setloading(false)
-        }
+        }  
     }
 
     const Register = async (data) => {

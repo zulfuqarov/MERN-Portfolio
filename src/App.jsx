@@ -28,10 +28,16 @@ const App = () => {
 
   useEffect(() => {
     navigateLogin(navigate)
-
-    if (!["/"].includes(location.pathname)) {
+    if (Cookies.get().jwtToken) {
       getPortfolio()
+    } else {
+      if (!["/"].includes(location.pathname)) {
+        getPortfolio()
+      }
     }
+    // if (!["/"].includes(location.pathname)) {
+    //   getPortfolio()
+    // }
   }, [])
 
   if (loading && !["/"].includes(location.pathname)) {
