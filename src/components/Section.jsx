@@ -123,9 +123,6 @@ const Section = () => {
                                 }
                             </div>
                         </div>
-                        <div>
-                            <Button text="Contact Us" />
-                        </div>
                     </div>
 
                 </div>

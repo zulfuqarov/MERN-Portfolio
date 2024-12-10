@@ -49,8 +49,8 @@ const MyPortfolioService = ({portfolioData}) => {
 
 
                                 <div className="flex flex-col justify-between items-center">
-                                    <div className="w-[136px] py-4">
-                                        <p className="text-white text-lg md:text-[26px] font-bold">
+                                    <div className="w-[150px] py-4">
+                                        <p className="text-white text-lg md:text-[22px] font-bold">
                                             {service.name || "Service Name"}
                                         </p>
                                     </div>

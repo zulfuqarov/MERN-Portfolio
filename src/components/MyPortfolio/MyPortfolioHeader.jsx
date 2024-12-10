@@ -37,9 +37,7 @@ const MyPortfolioHeader = ({ portfolioData }) => {
                             }
 
                         </div>
-                        <div>
-                            <Button text="Contact Us" />
-                        </div>
+                       
                     </div>
 
 

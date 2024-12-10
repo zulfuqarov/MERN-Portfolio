@@ -156,9 +156,6 @@ const Header = () => {
                                 }
                             </div>
                         </div>
-                        <div>
-                            <Button text="Contact Us" />
-                        </div>
                     </div>
                     <div className="w-full h-[427px] md:w-[427px] flex justify-center max-[768px]:order-1 max-[768px]:mt-[30px]">
 

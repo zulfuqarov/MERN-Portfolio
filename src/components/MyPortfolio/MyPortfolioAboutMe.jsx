@@ -36,9 +36,7 @@ const MyPortfolioAboutMe = ({portfolioData}) => {
                                 }
 
                             </div>
-                            <div>
-                                <Button text="Contact Us" />
-                            </div>
+                           
                         </div>
 
                     </div>
