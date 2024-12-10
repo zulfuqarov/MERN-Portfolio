@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import { PortfolioContext } from '../../context/ContextPorfolio'
 
-const MyPortfolioPortfolio = () => {
-    const { portfolioData } = useContext(PortfolioContext)
+const MyPortfolioPortfolio = ({portfolioData}) => {
+    // const { portfolioData } = useContext(PortfolioContext)
     const { myPortfolio, myPortfolioDescription } = portfolioData
     return (
 

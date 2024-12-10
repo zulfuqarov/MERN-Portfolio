@@ -22,6 +22,19 @@ router.post("/Search", async (req, res) => {
   }
 })
 
+router.get("/GetPortfolio/:id", async (req, res) => {
+  const { id } = req.params
+  try {
+    const getPortfolio = await Portfolio.findById(id)
+    if (!getPortfolio) {
+      return res.status(404).json({ message: "Portfolio not found" });
+    }
+    res.json(getPortfolio);
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 router.use(authenticateToken(["user", "admin"]));
 
 router.put("/", async (req, res) => {

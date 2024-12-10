@@ -32,23 +32,21 @@ const App = () => {
     if (Cookies.get().jwtToken) {
       getPortfolio()
     } else {
-      if (!["/"].includes(location.pathname)) {
+      if (location.pathname !== "/" && !location.pathname.startsWith('/Portfolio-By/')) {
         getPortfolio()
       }
     }
-    // if (!["/"].includes(location.pathname)) {
-    //   getPortfolio()
-    // }
+    
   }, [])
 
-  if (loading && !["/"].includes(location.pathname)) {
+  if (loading && (location.pathname !== "/" && !location.pathname.startsWith('/Portfolio-By/'))) {
     return <Loading />
   }
 
   return (
     <>
       {
-        hideNavbar.includes(location.pathname) ? <Navbar /> :
+        hideNavbar.includes(location.pathname) || location.pathname.startsWith('/Portfolio-By/') ? <Navbar /> :
           null
       }
       <ToastContainer />

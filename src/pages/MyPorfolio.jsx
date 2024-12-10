@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { PortfolioContext } from '../context/ContextPorfolio'
 import { useNavigate, Link } from "react-router-dom";
-import Cookies from "js-cookie";
+
 import MyPortfolioHeader from '../components/MyPortfolio/MyPortfolioHeader';
 import MyPortfolioAboutMe from '../components/MyPortfolio/MyPortfolioAboutMe';
 import MyPortfolioService from '../components/MyPortfolio/MyPortfolioService';
@@ -22,13 +22,13 @@ const MyPorfolio = () => {
 
     return (
         <div>
-            <MyPortfolioHeader />
-            <MyPortfolioAboutMe />
-            <MyPortfolioService />
-            <MyPortfolioPortfolio />
-            <MyPortfolioExperience />
-            <MyPortfolioContact />
-            <MyPotfolioFotter />
+            <MyPortfolioHeader portfolioData={portfolioData} />
+            <MyPortfolioAboutMe portfolioData={portfolioData}/>
+            <MyPortfolioService portfolioData={portfolioData}/>
+            <MyPortfolioPortfolio portfolioData={portfolioData}/>
+            <MyPortfolioExperience portfolioData={portfolioData}/>
+            <MyPortfolioContact portfolioData={portfolioData}/>
+            <MyPotfolioFotter portfolioData={portfolioData}/>
         </div>
     )
 }

@@ -15,8 +15,8 @@ const socialMediaImages = {
     youtube: youtube
 };
 
-const MyPotfolioFotter = () => {
-    const { portfolioData } = useContext(PortfolioContext)
+const MyPotfolioFotter = ({ portfolioData }) => {
+    // const { portfolioData } = useContext(PortfolioContext)
     const { socialMedia, footerAboutDescription } = portfolioData
     return (
         <div className='mx-auto container h-[100%] py-[60px]'>

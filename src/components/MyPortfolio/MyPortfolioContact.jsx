@@ -2,8 +2,8 @@ import React, { useContext,useState } from 'react'
 import { PortfolioContext } from '../../context/ContextPorfolio'
 import Button from '../Button'
 
-const MyPortfolioContact = () => {
-    const { portfolioData } = useContext(PortfolioContext)
+const MyPortfolioContact = ({portfolioData}) => {
+    // const { portfolioData } = useContext(PortfolioContext)
     const { contactDescription, contactAddres, contactEmail, contactPhone, contactWebsite } = portfolioData
     const [data, setdata] = useState([
         {

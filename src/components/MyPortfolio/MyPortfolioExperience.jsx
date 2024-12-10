@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import { PortfolioContext } from '../../context/ContextPorfolio'
 
-const MyPortfolioExperience = () => {
-    const { portfolioData } = useContext(PortfolioContext)
+const MyPortfolioExperience = ({portfolioData}) => {
+    // const { portfolioData } = useContext(PortfolioContext)
     const { myExperiencesDescription, Experiences } = portfolioData
     return (
         <div className="bg-[#111827] w-full py-12 break-words ">

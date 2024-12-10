@@ -2,9 +2,9 @@ import React from 'react'
 import { useContext } from 'react'
 import { PortfolioContext } from '../../context/ContextPorfolio'
 import Button from '../Button'
-const MyPortfolioHeader = () => {
+const MyPortfolioHeader = ({portfolioData}) => {
 
-    const { portfolioData } = useContext(PortfolioContext)
+    // const { portfolioData } = useContext(PortfolioContext)
     const { headerTitile, headerDescription, headerImg } = portfolioData
 
     return (

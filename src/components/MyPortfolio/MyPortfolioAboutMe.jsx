@@ -2,8 +2,8 @@ import React, { useContext } from 'react'
 import { PortfolioContext } from '../../context/ContextPorfolio'
 import Button from '../Button'
 
-const MyPortfolioAboutMe = () => {
-    const { portfolioData } = useContext(PortfolioContext)
+const MyPortfolioAboutMe = ({portfolioData}) => {
+    // const { portfolioData } = useContext(PortfolioContext)
     const { aboutMeDescription, aboutMeImg } = portfolioData
     return (
         <div>
