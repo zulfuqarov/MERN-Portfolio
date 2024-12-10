@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { PortfolioContext } from '../../context/ContextPorfolio'
-
+import { Link } from 'react-router-dom'
 const SearchInput = () => {
 
     const { searchPortfolioFunc, searchPortfolio } = useContext(PortfolioContext)
@@ -58,9 +58,11 @@ const SearchInput = () => {
                                         <p className="text-white font-medium">{oneMap.userName}</p>
                                         <p className="text-gray-400 text-sm">{oneMap.position}</p>
                                     </div>
-                                    <button className="text-[#FACC15] font-semibold hover:underline transition duration-300">
+                                    <Link
+                                        to={`/Portfolio-By/${oneMap.userName}?id=${oneMap._id}`}
+                                        className="text-[#FACC15] font-semibold hover:underline transition duration-300">
                                         Visit
-                                    </button>
+                                    </Link>
                                 </div>
                             )) : <p className='text-center text-red-500'>No Results</p>
                     }

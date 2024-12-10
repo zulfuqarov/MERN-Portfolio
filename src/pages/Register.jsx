@@ -89,7 +89,7 @@ const Register = () => {
 
     }
 
-    
+
 
     if (Cookies.get().jwtToken && portfolioData && portfolioData.edit) {
         return <Navigate to="/MyPortfolio" />;
@@ -124,18 +124,26 @@ const Register = () => {
         <div >
             <div className="flex justify-end items-center p-4">
                 <Link
+                    to="/"
+                    className="bg-yellow-400 text-[15px] font-medium text-black py-2 px-6 rounded-lg hover:bg-yellow-500 hover:text-white transition duration-200 mr-4"
+                >
+                    Portfolio
+                </Link>
+                <Link
                     to="/Login"
-                    className="bg-yellow-400  text-[15px] text-black py-2 px-6 rounded-lg shadow-md hover:bg-yellow-500 hover:text-white transition-all duration-300 ease-in-out"
+                    className="bg-gray-200 text-[15px] font-medium text-black py-2 px-6 rounded-lg hover:bg-gray-300 hover:text-black transition duration-200"
                 >
                     Login
                 </Link>
             </div>
 
+
+
             <div className="flex min-h-full flex-col justify-center px-6 py-9 lg:px-8 bg-[#020617]">
-                <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                    <h1 className="text-3xl text-center font-bold text-transparent bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text drop-shadow-lg shadow-orange-500">
+                <div className="sm:mx-auto text-center sm:w-full sm:max-w-sm">
+                    <Link to="/" className="text-3xl  text-center font-bold text-transparent bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text drop-shadow-lg shadow-orange-500">
                         Portfolio
-                    </h1>
+                    </Link>
                     <h2 className="mt-10 text-center text-2xl font-bold tracking-tight text-white">
                         Register in to your Portfolio
                     </h2>
@@ -178,7 +186,7 @@ const Register = () => {
                             <div className="mt-2">
                                 <input
                                     onChange={handleInputChange}
-                                    value={registerInput.name }
+                                    value={registerInput.name}
                                     id="name"
                                     name="name"
                                     type="text"

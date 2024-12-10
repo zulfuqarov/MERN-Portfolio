@@ -39,7 +39,7 @@ const Navbar = () => {
                         </div>
                     </Link>
 
-                    <div className="hidden md:flex text-[#9CA3AF] justify-between items-center">
+                    <div className=" flex text-[#9CA3AF] justify-between items-center">
                         <button
                             onClick={() => getPortfolio()}
                             className='bg-[#FACC15] px-[10px] py-[7px] w-[100px] text-center rounded text-black font-semibold hover:text-white transition-all'
@@ -63,17 +63,13 @@ const Navbar = () => {
                     </div>
                 </Link>
 
-                <div className="hidden md:flex text-[#9CA3AF] justify-between items-center w-[620px] max-[1024px]:w-[520px]">
-                    <Link href="#">Home</Link>
-                    <Link href="#">About</Link>
-                    <Link href="#">Service</Link>
-                    <Link to="/MyPortfolio">MyPortfolio</Link>
-                    <Link href="#">Resume</Link>
-                    <Link href="#">Blog</Link>
-                    <Link href="#">Contact</Link>
+                <div className="hidden md:flex text-[#9CA3AF]  items-center">
+                    <Link to="/" className='px-3 inline-block' href="#">Search Portfolio</Link>
+                    <Link className='px-3 inline-block' to="/MyPortfolio">MyPortfolio</Link>
+                    <Link className='px-3 inline-block' href="#">Contact</Link>
                     <button
                         onClick={logOut}
-                        className='bg-[#FACC15] text-[13px] hover:text-white text-black p-[5px] rounded flex  justify-center items-center'
+                        className='bg-[#FACC15] text-[13px] mx-3 hover:text-white text-black p-[5px] rounded flex  justify-center items-center'
                     >
                         Logut
                         <i className="pl-[15px] fa-solid fa-right-from-bracket"></i>
@@ -91,13 +87,16 @@ const Navbar = () => {
 
             {menuOpen && (
                 <div className="flex flex-col mt-4 space-y-2 md:hidden  text-[#9CA3AF]">
-                    <Link href="#">Home</Link>
-                    <Link href="#">About</Link>
-                    <Link href="#">Service</Link>
-                    <Link href="#">Portfolio</Link>
-                    <Link href="#">Resume</Link>
-                    <Link href="#">Blog</Link>
-                    <Link href="#">Contact</Link>
+                    <Link to="/" className='inline-block py-2' href="#">Search Portfolio</Link>
+                    <Link className='py-2' to="/MyPortfolio">MyPortfolio</Link>
+                    <Link className='py-2' href="#">Contact</Link>
+                    <button
+                        onClick={logOut}
+                        className='bg-[#FACC15] text-[13px] hover:text-white text-black p-[5px] rounded flex  justify-center items-center'
+                    >
+                        Logut
+                        <i className="pl-[15px] fa-solid fa-right-from-bracket"></i>
+                    </button>
                 </div>
             )}
         </div>

@@ -33,18 +33,24 @@ const Login = () => {
     <div>
       <div className="flex justify-end items-center p-4">
         <Link
+          to="/"
+          className="bg-yellow-400 text-[15px] font-medium text-black py-2 px-6 rounded-lg hover:bg-yellow-500 hover:text-white transition duration-200 mr-4"
+        >
+          Portfolio
+        </Link>
+        <Link
           to="/Register"
-          className="bg-yellow-400  text-[15px] text-black py-2 px-6 rounded-lg shadow-md hover:bg-yellow-500 hover:text-white transition-all duration-300 ease-in-out"
+          className="bg-gray-200 text-[15px] font-medium text-black py-2 px-6 rounded-lg hover:bg-gray-300 hover:text-black transition duration-200"
         >
           Register
         </Link>
       </div>
 
       <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 bg-[#020617]">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h1 className="text-3xl text-center font-bold text-transparent bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text drop-shadow-lg shadow-orange-500">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm text-center">
+          <Link to="/" className="text-3xl text-center font-bold text-transparent bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text drop-shadow-lg shadow-orange-500">
             Portfolio
-          </h1>
+          </Link>
           <h2 className="mt-10 text-center text-2xl font-bold tracking-tight text-white">
             Login in to your Portfolio
           </h2>

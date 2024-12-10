@@ -18,6 +18,7 @@ import MyPorfolio from './pages/MyPorfolio.jsx'
 import SearchPortfolio from './pages/SearchPortfolio.jsx'
 
 import Cookies from "js-cookie";
+import GetPortfolio from './pages/GetPortfolio.jsx'
 
 const App = () => {
   const { loading, getPortfolio, editPortfolioFunc } = useContext(PortfolioContext)
@@ -59,6 +60,7 @@ const App = () => {
       }
       <Routes>
         <Route path='/' element={<SearchPortfolio />} />
+        <Route path="/Portfolio-By/:name" element={<GetPortfolio />} />
         <Route path='/MyPortfolio' element={<MyPorfolio />} />
         <Route path='/Edit' element={<Home />} />
         <Route path="/Login" element={<Login />} />
