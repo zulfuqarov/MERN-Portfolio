@@ -36,7 +36,7 @@ const App = () => {
         getPortfolio()
       }
     }
-    
+
   }, [])
 
   if (loading && (location.pathname !== "/" && !location.pathname.startsWith('/Portfolio-By/'))) {
@@ -50,7 +50,7 @@ const App = () => {
           null
       }
       <ToastContainer />
-      {
+      {location.pathname === "/" || location.pathname.startsWith('/Portfolio-By/') ? '' :
         location.pathname === "/Edit" ? <Button func={editPortfolioFunc} text="Save" classProps="fixed bottom-[30px] right-[30px] hover:bg-white hover:text-black z-50" /> :
           Cookies.get().jwtToken ?
             <Button func={() => navigate("/Edit")} text="Edit" classProps="fixed bottom-[30px] right-[30px] hover:bg-white hover:text-black z-50" />

@@ -2,7 +2,7 @@ import React from 'react'
 import { useContext } from 'react'
 import { PortfolioContext } from '../../context/ContextPorfolio'
 import Button from '../Button'
-const MyPortfolioHeader = ({portfolioData}) => {
+const MyPortfolioHeader = ({ portfolioData }) => {
 
     // const { portfolioData } = useContext(PortfolioContext)
     const { headerTitile, headerDescription, headerImg } = portfolioData
@@ -19,12 +19,12 @@ const MyPortfolioHeader = ({portfolioData}) => {
                             <div className='flex justify-between items-center max-[768px]:flex-col'>
                                 {
 
-                                        <h1 className="text-white font-bold text-[28px] py-[20px] md:text-[42px]">
-                                            {
-                                                headerTitile ? headerTitile :
-                                                    "Add your title."
-                                            }
-                                        </h1>
+                                    <h1 className="text-white font-bold text-[28px] py-[20px] md:text-[42px]">
+                                        {
+                                            headerTitile ? headerTitile :
+                                                "Add your title."
+                                        }
+                                    </h1>
                                 }
                             </div>
 
