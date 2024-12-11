@@ -64,7 +64,7 @@ const Portfolio = () => {
     return (
         <div className="mx-auto container px-4">
             <div className='w-full flex flex-col justify-center items-center py-[30px]'>
-                <div className='w-[430px] text-center flex flex-col justify-start items-center '>
+                <div className='w-[350px] text-center flex flex-col justify-start items-center '>
                     <p className='text-[42px] font-bold text-white'>My <span className='text-[#EAB308]'>Portfolio</span></p>
                     <div>
                         {

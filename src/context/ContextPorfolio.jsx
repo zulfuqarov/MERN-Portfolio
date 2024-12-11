@@ -25,7 +25,7 @@ const ContextPorfolio = ({ children }) => {
             setloading(false)
             location.pathname === "/Login" ? '' :
                 toast.error(error.response.data.message)
-        }  
+        }
     }
 
     const Register = async (data) => {
@@ -65,6 +65,10 @@ const ContextPorfolio = ({ children }) => {
     const [editValue, seteditValue] = useState({})
     const [editPortfolio, seteditPortfolio] = useState()
     const editPortfolioFunc = async () => {
+        if(Object.keys(editValue).length == 0){
+            toast.info("Please fill all the required fields")
+            return;
+        }
         setloading(true)
 
         const formData = new FormData()
@@ -89,6 +93,8 @@ const ContextPorfolio = ({ children }) => {
             const response = await apiClient.put("/Portfolio", formData)
             setportfolioData(response.data)
             setloading(false)
+            seteditValue({})
+            toast.success("Portfolio updated successfully")
         } catch (error) {
             console.log(error)
             setloading(false)

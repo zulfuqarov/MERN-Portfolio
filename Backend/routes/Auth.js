@@ -75,6 +75,14 @@ router.post("/Login", async (req, res) => {
       maxAge: 1000 * 60 * 60 * 24 * 7,
     });
 
+    // res.cookie("jwtToken", token, {
+    //   domain: ".nabi.net.tr",
+    //   path: "/",
+    //   //  httpOnly: true,  
+    //   secure: true,
+    //   sameSite: "None",
+    // });
+
     let PortfolioCheck = await Portfolio.findOne({
       userId: user._id,
     });
@@ -111,6 +119,15 @@ router.post("/Logout", async (req, res) => {
       secure: true,
       sameSite: "strict",
     });
+
+    // res.clearCookie("jwtToken", {
+    //   domain: ".nabi.net.tr",  // Cookie'nin geçerli olduğu domain
+    //   httpOnly: true,
+    //   secure: true,
+    //   sameSite: "Strict",  // Aynı site isteği dışında erişimi kısıtlar
+    // });
+    
+
     res.status(200).json({ message: "Profile has been logged out" });
   } catch (error) {
     console.log(error);
