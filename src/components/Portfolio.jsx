@@ -132,6 +132,12 @@ const Portfolio = () => {
                                 className="absolute opacity-0 w-full h-full cursor-pointer"
                             />
                             <button
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    const deletingPortfolio = portfolioImg.filter((oneFilter, index) => index !== 0)
+                                    setportfolioImg(deletingPortfolio)
+                                    seteditValue({ ...editValue, myPortfolio: deletingPortfolio })
+                                }}
                                 className="bg-red-500 hover:bg-red-600 w-[100px] h-[30px] text-[13px] text-white rounded absolute top-0 right-0 transition duration-300 ease-in-out z-50"
                             >
                                 Delete
@@ -161,6 +167,18 @@ const Portfolio = () => {
                                             accept="image/*"
                                             className="absolute opacity-0 w-full h-full cursor-pointer"
                                         />
+                                        <button
+                                            onClick={(e) => {
+                                                e.preventDefault()
+                                                const deletingPortfolio = portfolioImg.filter((oneFilter, idx) => idx !== index + 1)
+                                                console.log(deletingPortfolio)
+                                                setportfolioImg(deletingPortfolio)
+                                                seteditValue({ ...editValue, myPortfolio: deletingPortfolio })
+                                            }}
+                                            className="bg-red-500 hover:bg-red-600 w-[100px] h-[30px] text-[13px] text-white rounded absolute top-0 right-0 transition duration-300 ease-in-out z-50"
+                                        >
+                                            Delete
+                                        </button>
                                     </label>
                                 </div>
                             ))}
