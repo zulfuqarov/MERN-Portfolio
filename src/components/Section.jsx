@@ -1,4 +1,4 @@
-import React, { useState,useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import ProfileImg from '../Assets/Img/ProfileImg.svg'
 import Button from './Button'
 import { PortfolioContext } from '../context/ContextPorfolio'
@@ -44,6 +44,9 @@ const Section = () => {
             ...editValue,
             aboutMeImg: file,
         })
+
+        event.target.value = null;
+
     };
 
     return (
@@ -68,6 +71,23 @@ const Section = () => {
                                 accept="image/*"
                                 className="absolute opacity-0 w-full h-full cursor-pointer"
                             />
+
+                            {
+                                AboutMeImg && AboutMeImg !== "https://ruvsp.ru/css/theme-InnoForum/img/emptyava.png" ?
+                                    < button
+                                        onClick={(event) => {
+                                            event.preventDefault()
+                                            setAboutMeImg("https://ruvsp.ru/css/theme-InnoForum/img/emptyava.png")
+                                            seteditValue({
+                                                ...editValue,
+                                                aboutMeImg: "https://ruvsp.ru/css/theme-InnoForum/img/emptyava.png",
+                                            })
+                                        }}
+                                        className="bg-red-500 hover:bg-red-600 w-[100px] h-[30px] text-[13px] text-white rounded absolute top-0 right-0 transition duration-300 ease-in-out z-50">
+                                        delete
+                                    </button> : ''
+                            }
+
                         </label>
                     </div>
 

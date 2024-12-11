@@ -20,7 +20,7 @@ const Portfolio = () => {
     }
     const showPortfolioDescription = () => {
 
-        if(portfolioDescription.show){
+        if (portfolioDescription.show) {
             seteditValue({
                 ...editValue,
                 myPortfolioDescription: portfolioDescription.description
@@ -131,6 +131,11 @@ const Portfolio = () => {
                                 accept="image/*"
                                 className="absolute opacity-0 w-full h-full cursor-pointer"
                             />
+                            <button
+                                className="bg-red-500 hover:bg-red-600 w-[100px] h-[30px] text-[13px] text-white rounded absolute top-0 right-0 transition duration-300 ease-in-out z-50"
+                            >
+                                Delete
+                            </button>
                         </label>
                     </div>
 
