@@ -84,7 +84,7 @@ const MyPortfolioPortfolio = ({ portfolioData }) => {
 
 
             {
-                showImg.show && <div className="fixed inset-0 z-50  bg-black bg-opacity-50 ">
+                showImg.show && <div className="fixed inset-0 z-[99]  bg-black bg-opacity-50 ">
                     <div className="relative flex flex-col items-center justify-around bg-white/30 backdrop-blur-md rounded-lg shadow-lg w-full h-full">
                         {/* Modal header */}
                         <div className="flex justify-between items-center p-4 border-b w-full">

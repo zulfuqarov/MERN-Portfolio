@@ -66,7 +66,6 @@ const Navbar = () => {
                 <div className="hidden md:flex text-[#9CA3AF]  items-center">
                     <Link to="/" className='px-3 inline-block' href="#">Search Portfolio</Link>
                     <Link className='px-3 inline-block' to="/MyPortfolio">MyPortfolio</Link>
-                    <Link className='px-3 inline-block' href="#">Contact</Link>
                     <button
                         onClick={logOut}
                         className='bg-[#FACC15] text-[13px] mx-3 hover:text-white text-black p-[5px] rounded flex  justify-center items-center'
@@ -89,7 +88,6 @@ const Navbar = () => {
                 <div className="flex flex-col mt-4 space-y-2 md:hidden  text-[#9CA3AF]">
                     <Link to="/" className='inline-block py-2' href="#">Search Portfolio</Link>
                     <Link className='py-2' to="/MyPortfolio">MyPortfolio</Link>
-                    <Link className='py-2' href="#">Contact</Link>
                     <button
                         onClick={logOut}
                         className='bg-[#FACC15] text-[13px] hover:text-white text-black p-[5px] rounded flex  justify-center items-center'
