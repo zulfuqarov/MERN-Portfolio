@@ -1,6 +1,7 @@
 import React from 'react'
 import SearchHeader from '../components/SearchPortfolio.jsx/SearchHeader'
 import SearchInput from '../components/SearchPortfolio.jsx/SearchInput'
+import AboutPage from '../components/AboutPage'
 
 const SearchPortfolio = () => {
     return (
@@ -8,6 +9,7 @@ const SearchPortfolio = () => {
             <div className='flex flex-col justify-center items-center h-full w-full'>
                 <SearchHeader />
                 <SearchInput />
+                <AboutPage />
             </div>
         </div>
     )

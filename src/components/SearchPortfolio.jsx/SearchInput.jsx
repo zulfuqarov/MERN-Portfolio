@@ -3,7 +3,7 @@ import { PortfolioContext } from '../../context/ContextPorfolio'
 import { Link } from 'react-router-dom'
 const SearchInput = () => {
 
-    const { searchPortfolioFunc, searchPortfolio } = useContext(PortfolioContext)
+    const { searchPortfolioFunc, searchPortfolio, serachLoading } = useContext(PortfolioContext)
 
     const [searchInput, setsearchInput] = useState("")
     const handleSearchInput = (e) => {
@@ -51,20 +51,23 @@ const SearchInput = () => {
                 <h3 className="text-lg font-semibold text-white border-b border-gray-700 pb-2">Search Results</h3>
                 <div className="space-y-4 max-h-[365px] overflow-auto">
                     {
-                        searchPortfolio.length > 0 ?
-                            searchPortfolio.map((oneMap, index) => (
-                                <div key={index} className="flex justify-between items-center bg-[#334155] p-4 rounded-lg shadow-md hover:shadow-lg transition duration-300">
-                                    <div>
-                                        <p className="text-white font-medium">{oneMap.userName}</p>
-                                        <p className="text-gray-400 text-sm">{oneMap.position}</p>
+                        serachLoading ? (
+                            <div className="text-center text-white">Searching...</div>
+                        ) :
+                            searchPortfolio.length > 0 ?
+                                searchPortfolio.map((oneMap, index) => (
+                                    <div key={index} className="flex justify-between items-center bg-[#334155] p-4 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+                                        <div>
+                                            <p className="text-white font-medium">{oneMap.userName}</p>
+                                            <p className="text-gray-400 text-sm">{oneMap.position}</p>
+                                        </div>
+                                        <Link
+                                            to={`/Portfolio-By/${oneMap.userName}?id=${oneMap._id}`}
+                                            className="text-[#FACC15] font-semibold hover:underline transition duration-300">
+                                            Visit
+                                        </Link>
                                     </div>
-                                    <Link
-                                        to={`/Portfolio-By/${oneMap.userName}?id=${oneMap._id}`}
-                                        className="text-[#FACC15] font-semibold hover:underline transition duration-300">
-                                        Visit
-                                    </Link>
-                                </div>
-                            )) : <p className='text-center text-red-500'>No Results</p>
+                                )) : <p className='text-center text-red-500'>No Results</p>
                     }
                 </div>
             </div>

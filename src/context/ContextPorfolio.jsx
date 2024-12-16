@@ -65,7 +65,7 @@ const ContextPorfolio = ({ children }) => {
     const [editValue, seteditValue] = useState({})
     const [editPortfolio, seteditPortfolio] = useState()
     const editPortfolioFunc = async () => {
-        if(Object.keys(editValue).length == 0){
+        if (Object.keys(editValue).length == 0) {
             toast.info("Please fill all the required fields")
             return;
         }
@@ -103,15 +103,20 @@ const ContextPorfolio = ({ children }) => {
 
     // Search Start
     const [searchPortfolio, setsearchPortfolio] = useState([])
+    const [serachLoading, setserachLoading] = useState(false)
     const searchPortfolioFunc = async (searchText) => {
+        setserachLoading(true)
         try {
             const response = await apiClient.post("/Portfolio/Search", {
                 search: searchText
             })
             console.log(response.data)
             setsearchPortfolio(response.data)
+            setserachLoading(false)
         } catch (error) {
             console.log(error)
+            setsearchPortfolio([])
+            setserachLoading(false)
         }
     }
 
@@ -127,7 +132,8 @@ const ContextPorfolio = ({ children }) => {
             editValue,
             editPortfolioFunc,
             searchPortfolioFunc,
-            searchPortfolio
+            searchPortfolio,
+            serachLoading
         }}>
             {children}
         </PortfolioContext.Provider>
